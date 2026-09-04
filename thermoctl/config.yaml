@@ -1,6 +1,6 @@
 ---
 name: thermoctl
-version: "0.6.1"
+version: "0.6.2"
 slug: thermoctl
 description: >-
   Sensorbasierte Heizungssteuerung mit Zeitplänen, eigener Anmeldung, REST-API
