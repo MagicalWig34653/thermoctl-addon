@@ -1,0 +1,112 @@
+---
+name: thermoctl
+version: "0.6.1"
+slug: thermoctl
+description: >-
+  Sensorbasierte Heizungssteuerung mit Zeitplänen, eigener Anmeldung, REST-API
+  und MCP-Server. Steuert eine echte Heizung.
+url: "https://github.com/MagicalWig34653/thermoctl"
+
+# aarch64 und amd64 -- die vom Projektinhaber entschiedenen Zielarchitekturen.
+# armv7 ausdruecklich nicht (siehe Projekt-STATUS.md, Home-Assistant-Add-on-Eintrag).
+arch:
+  - amd64
+  - aarch64
+
+# Das Abbild, das .github/workflows/docker.yml im thermoctl-Hauptrepository baut und
+# nach ghcr.io veroeffentlicht. Der Supervisor haengt selbst ":{version}" an -- die
+# Versionsnummer oben muss deshalb zu einem tatsaechlich vorhandenen Tag passen
+# (type=semver in docker.yml, also z.B. "0.6.1" fuer den Git-Tag "v0.6.1").
+image: "ghcr.io/magicalwig34653/thermoctl"
+
+# thermoctl macht keinen Gebrauch von s6-Overlay-Diensten -- der eigene Entrypoint
+# (docker/entrypoint.sh im Hauptrepository) ist bereits PID 1 und beendet sich sauber.
+init: false
+
+# Eigene Anmeldung: thermoctl hat eine eigene Benutzerverwaltung, unabhaengig von der
+# Home-Assistant-Anmeldung. Siehe DOCS.md -- Ingress ersetzt sie nicht, man meldet sich
+# zweimal an.
+ingress: true
+ingress_port: 0
+panel_icon: mdi:radiator
+
+# Web-App: startet als Reaktion auf Anfragen, keine feste, zeitkritische Systemaufgabe.
+startup: application
+boot: auto
+
+# Damit der Supervisor die Zugangsdaten des Home-Assistant-eigenen MQTT-Brokers an das
+# Add-on durchreichen kann, sobald jemand einen Zigbee2MQTT-/Mosquitto-Add-on parallel
+# betreibt. Zugriff auf die dadurch freigegebenen Werte erfolgt ueber die
+# Supervisor-API (/services/mqtt) -- das Uebernehmen in THERMOCTL_MQTT_* ist in dieser
+# Fassung *nicht* automatisiert, siehe Auftragsbericht. Bis dahin traegt der Betreiber
+# die MQTT-Optionen unten selbst ein, genau wie bei einer eigenstaendigen Instanz.
+services:
+  - "mqtt:want"
+
+# -----------------------------------------------------------------------------------
+# Optionen. Nur, was ein Betreiber wirklich einstellen muss -- abgeleitet aus
+# .env.example und thermoctl/config.py im Hauptrepository, keine erfundenen Felder.
+# THERMOCTL_BIND_HOST/_PORT und THERMOCTL_SECURE_COOKIES fehlen bewusst: Bind-Adresse
+# und Port sind Container-Interna hinter Ingress, keine Sache des Betreibers. Passkeys
+# (THERMOCTL_PASSKEY_*) und der MCP-Server-Token fehlen ebenfalls bewusst -- siehe
+# Auftragsbericht, offene Fragen.
+# -----------------------------------------------------------------------------------
+options:
+  secret_key: ""
+  log_level: info
+  database:
+    type: sqlite
+  mqtt:
+    enabled: false
+    tls: false
+    base_topic: zigbee2mqtt
+    prefix: thermoctl
+  meross:
+    email: ""
+    password: ""
+  notify:
+    webhook: ""
+
+schema:
+  # THERMOCTL_SECRET_KEY -- ohne ihn startet die Anwendung nicht (thermoctl/config.py:
+  # Settings.secret_key, Field(min_length=32)). Als password, damit der Supervisor ihn
+  # im UI verdeckt, auch wenn es kein Passwort im engeren Sinn ist.
+  secret_key: "password"
+  # THERMOCTL_LOG_LEVEL, Vorgabe INFO laut .env.example.
+  log_level: "list(debug|info|warning|error)"
+
+  # THERMOCTL_DATABASE_URL. SQLite unter /data ist die Vorgabe (das Add-on-Datenvolume);
+  # MariaDB ist die dokumentierte Alternative (siehe docker/compose.beispiel.yml) und
+  # braucht dafuer Host, Port, Benutzer, Passwort und Datenbankname.
+  database:
+    type: "list(sqlite|mariadb)"
+    host: "str?"
+    port: "port?"
+    user: "str?"
+    password: "password?"
+    database: "str?"
+
+  # THERMOCTL_MQTT_*. Insgesamt optional (.env.example: "MQTT ist insgesamt optional");
+  # eingeschaltet nimmt thermoctl darueber auch Befehle fuer alle Zonen entgegen, daher
+  # eigener Broker-Zugang mit Benutzername und Passwort.
+  mqtt:
+    enabled: "bool"
+    host: "str?"
+    port: "port?"
+    tls: "bool?"
+    username: "str?"
+    password: "password?"
+    base_topic: "str?"
+    prefix: "str?"
+
+  # THERMOCTL_MEROSS_*. Ohne diese Angaben meldet sich der Adapter als "nicht
+  # konfiguriert" und tut nichts (.env.example) -- deshalb vollstaendig optional.
+  meross:
+    email: "str?"
+    password: "password?"
+
+  # THERMOCTL_NOTIFY_WEBHOOK[_TOKEN]. Optional; ohne Adresse geht die Meldung nur ins
+  # Log (.env.example).
+  notify:
+    webhook: "url?"
+    webhook_token: "password?"

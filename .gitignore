@@ -1,0 +1,12 @@
+# iCloud-Konfliktkopien: ~/Documents ist ein Symlink nach iCloud Drive, und der
+# Dienst legt bei schnellen Schreibvorgaengen Dateien der Form "config 2.yaml" an.
+# Sie sind alte Staende und gehoeren nicht ins Repository.
+* [0-9].*
+* [0-9]
+
+# macOS
+.DS_Store
+
+# Editoren
+.idea/
+.vscode/
