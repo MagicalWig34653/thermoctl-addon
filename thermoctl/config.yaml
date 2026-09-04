@@ -62,11 +62,20 @@ options:
     client_id: thermoctl
     base_topic: zigbee2mqtt
     prefix: thermoctl
-# meross und notify stehen bewusst nicht in den Vorgaben. Ein leerer Vorgabewert
-# fuer ein Feld vom Typ "url?" laesst der Supervisor nicht durch -- er prueft den
-# leeren Text gegen die URL-Regel und lehnt das Speichern der gesamten
-# Konfiguration ab ("expected a URL"). Ein Feld ohne Vorgabe ist schlicht nicht
-# gesetzt, und das erlaubt das Fragezeichen im Schema ausdruecklich.
+  # meross und notify sind leere Gruppen, und das ist kein Versehen. Zwei Regeln
+  # des Supervisors greifen hier gegeneinander:
+  #
+  #   * Ein leerer Vorgabewert ("") fuer ein Feld vom Typ "url?" faellt durch die
+  #     URL-Pruefung -- er lehnt dann das Speichern der ganzen Konfiguration ab
+  #     ("expected a URL").
+  #   * Eine im Schema genannte Gruppe ist immer Pflicht; das Fragezeichen macht
+  #     nur einzelne Felder optional, nie die Gruppe. Fehlt sie in den Vorgaben,
+  #     kommt "Missing option 'notify' in root".
+  #
+  # Die leere Gruppe erfuellt beides: Sie ist vorhanden, und keines ihrer Felder
+  # traegt einen Wert, der geprueft werden koennte.
+  meross: {}
+  notify: {}
 
 schema:
   # THERMOCTL_SECRET_KEY -- ohne ihn startet die Anwendung nicht (thermoctl/config.py:
