@@ -22,3 +22,12 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
   dessen Rechteregeln an der Client-ID hängen.
 - Das Abbild gibt es jetzt für `amd64` **und** `arm64`, läuft also auch auf einem
   Raspberry Pi.
+
+## 0.6.3
+
+- **Störungsmeldungen lassen sich einzeln abschalten** — Sensorstörung, Brücke oder
+  Broker weg, und neu: Schaltbefehl gescheitert. Alle drei sind ab Werk an.
+- **Ein Testknopf für den Webhook** in den Einstellungen: Er schickt eine echte, als
+  Test gekennzeichnete Meldung und zeigt sofort, was zurückkam. Daneben steht, wann
+  zuletzt zugestellt wurde und ob es ankam.
+- Das Kiosk-Dashboard nennt jetzt ebenfalls den Quelltext (AGPL-3.0).
