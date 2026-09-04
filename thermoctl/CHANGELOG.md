@@ -37,3 +37,16 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
 - **Behoben: Das Add-on startete nicht.** Es kam an die eigene Konfiguration nicht
   heran — der Supervisor legt sie als `root` ab, das Abbild lief als unprivilegierter
   Benutzer. Der Dienst selbst läuft weiterhin unprivilegiert.
+
+## 0.7.0
+
+- **Eine per Boost ausgelöste Übersteuerung lässt sich jetzt aufheben.** Das Kiosk
+  hat dafür einen eigenen Knopf, sichtbar solange eine läuft, und Home Assistant
+  bekommt einen Knopf samt Anzeige, ob überhaupt eine Übersteuerung aktiv ist.
+  **Bereits ausgestellte Kiosk-Token zeigen den Knopf nicht** — sie brauchen dafür
+  eine erneute Ausstellung.
+- **Störungsmeldungen sind einzeln abschaltbar** und lassen sich mit einem Testknopf
+  prüfen, ohne auf einen echten Sensorausfall zu warten.
+- **Eine dezente Ladeanzeige** zeigt an, dass eine Anfrage unterwegs ist — spürbar
+  hinter dem Ingress-Proxy, der jede Anfrage einen Umweg nehmen lässt.
+- Das Kiosk nennt den Quelltext (AGPL-3.0), wie es Paragraf 13 verlangt.
