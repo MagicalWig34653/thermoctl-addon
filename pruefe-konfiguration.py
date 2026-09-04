@@ -22,13 +22,18 @@ def pruefe(schema: dict, optionen: dict, pfad: str = "") -> list[str]:
     for schluessel, typ in schema.items():
         wo = f"{pfad}{schluessel}"
         if isinstance(typ, dict):
-            # Eine Gruppe ist immer Pflicht. Das Fragezeichen macht einzelne Felder
-            # optional, nie die Gruppe -- eine leere Gruppe in den Vorgaben ist der
-            # Weg, sie vorhanden und trotzdem unausgefuellt zu lassen.
-            if schluessel not in optionen:
-                probleme.append(f"Gruppe '{wo}' fehlt in den Vorgaben")
-            else:
-                probleme += pruefe(typ, optionen[schluessel] or {}, wo + ".")
+            # Verschachtelte Gruppen sind hier verboten, nicht bloss heikel. Der
+            # Supervisor prueft die *abgeschickte* Konfiguration: Eine im Schema
+            # genannte Gruppe muss darin vorkommen, und die Oberflaeche laesst eine
+            # Gruppe, in der nichts ausgefuellt ist, beim Speichern weg. Das ergab
+            # zweimal "Missing option '<gruppe>' in root" -- auch mit einer leeren
+            # Gruppe als Vorgabe, denn die Vorgabe steht nicht in dem, was abgeschickt
+            # wird. Ein flaches Feld mit "?" kann dagegen nicht fehlen.
+            probleme.append(
+                f"'{wo}' ist eine verschachtelte Gruppe. Flach aufloesen "
+                f"(z. B. '{wo}_feld: \"str?\"'), sonst scheitert das Speichern, "
+                f"sobald niemand ein Feld darin ausfuellt."
+            )
             continue
         if not str(typ).rstrip(")").endswith("?") and schluessel not in optionen:
             probleme.append(f"Pflichtfeld '{wo}' ({typ}) fehlt in den Vorgaben")

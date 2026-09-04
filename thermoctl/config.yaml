@@ -44,84 +44,72 @@ services:
   - "mqtt:want"
 
 # -----------------------------------------------------------------------------------
-# Optionen. Nur, was ein Betreiber wirklich einstellen muss -- abgeleitet aus
-# .env.example und thermoctl/config.py im Hauptrepository, keine erfundenen Felder.
-# THERMOCTL_BIND_HOST/_PORT und THERMOCTL_SECURE_COOKIES fehlen bewusst: Bind-Adresse
-# und Port sind Container-Interna hinter Ingress, keine Sache des Betreibers. Passkeys
-# (THERMOCTL_PASSKEY_*) und der MCP-Server-Token fehlen ebenfalls bewusst -- siehe
-# Auftragsbericht, offene Fragen.
+# Optionen -- bewusst flach, ohne verschachtelte Gruppen.
+#
+# Der Supervisor prueft die *abgeschickte* Konfiguration gegen dieses Schema, und jede
+# hier genannte Gruppe muss darin enthalten sein. Die Oberflaeche laesst eine Gruppe,
+# in der nichts ausgefuellt ist, beim Speichern aber weg -- das Ergebnis war zweimal
+# "Missing option '<gruppe>' in root", auch mit einer leeren Gruppe als Vorgabe. Ein
+# flaches Feld mit "?" ist dagegen schlicht optional und kann nicht fehlen.
+#
+# Abgeleitet aus .env.example und thermoctl/config.py im Anwendungsprojekt, keine
+# erfundenen Felder. THERMOCTL_BIND_HOST/_PORT und _SECURE_COOKIES fehlen bewusst:
+# Bind-Adresse und Port sind Container-Interna hinter Ingress. THERMOCTL_ROOT_PATH
+# ebenfalls -- den Ingress-Pfad ermittelt der Start selbst beim Supervisor.
 # -----------------------------------------------------------------------------------
 options:
   secret_key: ""
   log_level: info
-  database:
-    type: sqlite
-  mqtt:
-    enabled: false
-    tls: false
-    client_id: thermoctl
-    base_topic: zigbee2mqtt
-    prefix: thermoctl
-  # meross und notify sind leere Gruppen, und das ist kein Versehen. Zwei Regeln
-  # des Supervisors greifen hier gegeneinander:
-  #
-  #   * Ein leerer Vorgabewert ("") fuer ein Feld vom Typ "url?" faellt durch die
-  #     URL-Pruefung -- er lehnt dann das Speichern der ganzen Konfiguration ab
-  #     ("expected a URL").
-  #   * Eine im Schema genannte Gruppe ist immer Pflicht; das Fragezeichen macht
-  #     nur einzelne Felder optional, nie die Gruppe. Fehlt sie in den Vorgaben,
-  #     kommt "Missing option 'notify' in root".
-  #
-  # Die leere Gruppe erfuellt beides: Sie ist vorhanden, und keines ihrer Felder
-  # traegt einen Wert, der geprueft werden koennte.
-  meross: {}
-  notify: {}
+  log_format: json
+  database_type: sqlite
+  mqtt_enabled: false
+  mqtt_tls: false
+  mqtt_client_id: thermoctl
+  mqtt_base_topic: zigbee2mqtt
+  mqtt_prefix: thermoctl
 
 schema:
-  # THERMOCTL_SECRET_KEY -- ohne ihn startet die Anwendung nicht (thermoctl/config.py:
-  # Settings.secret_key, Field(min_length=32)). Als password, damit der Supervisor ihn
-  # im UI verdeckt, auch wenn es kein Passwort im engeren Sinn ist.
+  # THERMOCTL_SECRET_KEY -- ohne ihn startet die Anwendung nicht (Settings.secret_key,
+  # Field(min_length=32)). Als "password", damit der Supervisor ihn verdeckt anzeigt.
   secret_key: "password"
-  # THERMOCTL_LOG_LEVEL, Vorgabe INFO laut .env.example.
   log_level: "list(debug|info|warning|error)"
+  log_format: "list(json|text)"
 
-  # THERMOCTL_DATABASE_URL. SQLite unter /data ist die Vorgabe (das Add-on-Datenvolume);
-  # MariaDB ist die dokumentierte Alternative (siehe docker/compose.beispiel.yml) und
-  # braucht dafuer Host, Port, Benutzer, Passwort und Datenbankname.
-  database:
-    type: "list(sqlite|mariadb)"
-    host: "str?"
-    port: "port?"
-    user: "str?"
-    password: "password?"
-    database: "str?"
+  # THERMOCTL_DATABASE_URL wird aus diesen Feldern zusammengesetzt. SQLite unter /data
+  # ist die Vorgabe -- das ist das Datenverzeichnis des Add-ons, das der Supervisor
+  # mitsichert. MariaDB braucht Host, Port, Benutzer, Passwort und Datenbanknamen.
+  database_type: "list(sqlite|mariadb)"
+  database_host: "str?"
+  database_port: "port?"
+  database_user: "str?"
+  database_password: "password?"
+  database_name: "str?"
 
-  # THERMOCTL_MQTT_*. Insgesamt optional (.env.example: "MQTT ist insgesamt optional");
-  # eingeschaltet nimmt thermoctl darueber auch Befehle fuer alle Zonen entgegen, daher
-  # eigener Broker-Zugang mit Benutzername und Passwort.
-  mqtt:
-    enabled: "bool"
-    host: "str?"
-    port: "port?"
-    tls: "bool?"
-    ca_cert: "str?"
-    username: "str?"
-    password: "password?"
-    # THERMOCTL_MQTT_CLIENT_ID, Vorgabe "thermoctl". Gehoert ins Schema, weil ein
-    # Broker mit Rechteverwaltung (etwa EMQX) Regeln haeufig an die Client-ID
-    # bindet -- ohne diese Angabe kaeme thermoctl dort nicht durch.
-    client_id: "str?"
-    base_topic: "str?"
-    prefix: "str?"
+  # THERMOCTL_MQTT_*. Insgesamt optional; eingeschaltet nimmt thermoctl darueber auch
+  # Befehle entgegen, deshalb ein eigener Broker-Zugang. Die Client-ID gehoert dazu,
+  # weil ein Broker mit Rechteverwaltung seine Regeln haeufig daran bindet.
+  mqtt_enabled: "bool"
+  mqtt_host: "str?"
+  mqtt_port: "port?"
+  mqtt_tls: "bool?"
+  mqtt_ca_cert: "str?"
+  mqtt_username: "str?"
+  mqtt_password: "password?"
+  mqtt_client_id: "str?"
+  mqtt_base_topic: "str?"
+  mqtt_prefix: "str?"
 
   # THERMOCTL_MEROSS_*. Ohne diese Angaben meldet sich der Adapter als "nicht
-  # konfiguriert" und tut nichts (.env.example) -- deshalb vollstaendig optional.
-  meross:
-    email: "str?"
-    password: "password?"
+  # konfiguriert" und tut nichts.
+  meross_email: "str?"
+  meross_password: "password?"
 
-  # THERMOCTL_NOTIFY_WEBHOOK[_TOKEN]. Optional; ohne Adresse geht die Meldung nur ins
-  # Log (.env.example).
-  notify:
-    webhook: "url?"
-    webhook_token: "password?"
+  # THERMOCTL_NOTIFY_WEBHOOK[_TOKEN]. Ohne Adresse geht die Stoerungsmeldung nur ins Log.
+  notify_webhook: "url?"
+  notify_webhook_token: "password?"
+
+  # Auffangnetz fuer alles, was hier nicht steht: eine .env, so wie man sie auch neben
+  # docker compose legen wuerde -- eine Zuweisung je Zeile, Rautenzeichen leiten einen
+  # Kommentar ein. Wird nach den Feldern oben angewandt und kann sie ueberschreiben;
+  # eine von aussen gesetzte Umgebungsvariable gewinnt weiterhin gegen beides.
+  env: "str?"

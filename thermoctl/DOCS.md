@@ -51,12 +51,12 @@ Vorgabe ist SQLite in einer Datei unter `/data` — dem Datenverzeichnis des Add
 Neustarts und Updates übersteht. Für die meisten Haushalte reicht das vollständig.
 
 Wer ohnehin einen MariaDB-Server betreibt (z. B. ein eigenes MariaDB-Add-on oder einen
-externen Server), kann `database.type` auf `mariadb` stellen und Host, Port, Benutzer,
+externen Server), kann `database_type` auf `mariadb` stellen und Host, Port, Benutzer,
 Passwort und Datenbankname eintragen. Die Datenbank muss vorher existieren.
 
 ### MQTT (Zigbee2MQTT)
 
-Optional, und standardmäßig abgeschaltet. Sobald `mqtt.enabled` an ist, nimmt thermoctl
+Optional, und standardmäßig abgeschaltet. Sobald `mqtt_enabled` an ist, nimmt thermoctl
 über den angegebenen Broker nicht nur Sensordaten entgegen, sondern auch Befehle für
 alle Zonen — tragen Sie deshalb einen eigenen Broker-Zugang mit eng begrenzten Rechten
 für thermoctl ein, nicht Ihren allgemeinen Home-Assistant-Zugang.
@@ -87,3 +87,23 @@ Beides ist bewusst nicht Teil dieser ersten Add-on-Fassung — siehe das begleit
 
 Fehler und Fragen bitte als Issue im Quelltext-Repository:
 <https://github.com/MagicalWig34653/thermoctl/issues>.
+
+## Wenn ein Feld fehlt
+
+Nicht jede Einstellung von thermoctl hat ein eigenes Feld in dieser Oberfläche. Für
+alles Übrige gibt es **`env`**: Dort hinein kommt der Inhalt einer `.env`, so wie man
+sie auch neben `docker compose` legen würde — eine Zuweisung je Zeile:
+
+```
+THERMOCTL_MEROSS_EMAIL=ich@example.org
+THERMOCTL_NOTIFY_WEBHOOK=https://beispiel.invalid/haken
+# Zeilen mit Rautenzeichen werden übersprungen
+```
+
+Diese Zuweisungen gelten **nach** den Feldern darüber und dürfen sie überschreiben.
+Welche Namen es gibt, steht in der `.env.example` des
+[Anwendungsprojekts](https://github.com/MagicalWig34653/thermoctl).
+
+**Achtung:** Was Sie hier eintragen, steht im Klartext in der Add-on-Konfiguration —
+genau wie die übrigen Felder auch. Ein Passwort gehört trotzdem lieber in das dafür
+vorgesehene Feld, wo der Supervisor es wenigstens in der Anzeige verdeckt.
