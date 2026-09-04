@@ -27,7 +27,12 @@ init: false
 # Home-Assistant-Anmeldung. Siehe DOCS.md -- Ingress ersetzt sie nicht, man meldet sich
 # zweimal an.
 ingress: true
-ingress_port: 0
+# Der Port, auf dem thermoctl im Container lauscht (Settings.bind_port, Vorgabe 8000).
+# NICHT 0: Das hiesse "der Supervisor sucht sich einen freien Port aus", und ein Add-on
+# muesste ihn zur Laufzeit bei ihm erfragen und darauf lauschen. thermoctl lauscht fest
+# auf 8000 -- mit 0 zeigte der Ingress-Proxy auf einen Port, an dem niemand horcht, und
+# Home Assistant meldete "Die App scheint noch nicht bereit zu sein".
+ingress_port: 8000
 panel_icon: mdi:radiator
 
 # Web-App: startet als Reaktion auf Anfragen, keine feste, zeitkritische Systemaufgabe.

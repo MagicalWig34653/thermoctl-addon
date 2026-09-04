@@ -42,9 +42,27 @@ def pruefe(schema: dict, optionen: dict, pfad: str = "") -> list[str]:
     return probleme
 
 
+def pruefe_ingress(geladen: dict) -> list[str]:
+    """Ingress braucht den Port, auf dem der Dienst wirklich lauscht.
+
+    `ingress_port: 0` heisst "der Supervisor sucht sich einen freien Port aus". Das ist
+    fuer Add-ons gedacht, die ihn zur Laufzeit bei ihm erfragen und darauf lauschen --
+    thermoctl lauscht fest auf `Settings.bind_port`. Mit 0 zeigt der Proxy auf einen
+    Port, an dem niemand horcht, und Home Assistant meldet "Die App scheint noch nicht
+    bereit zu sein". Der Dienst laeuft dabei einwandfrei, was die Suche verlaengert.
+    """
+    if not geladen.get("ingress"):
+        return []
+    port = geladen.get("ingress_port")
+    if port in (0, None):
+        return ["ingress_port ist 0 oder fehlt -- Ingress zeigt dann ins Leere. "
+                "Den Port eintragen, auf dem thermoctl lauscht (Vorgabe 8000)."]
+    return []
+
+
 def main() -> int:
     geladen = yaml.safe_load(KONFIGURATION.read_text(encoding="utf-8"))
-    probleme = pruefe(geladen["schema"], geladen["options"])
+    probleme = pruefe(geladen["schema"], geladen["options"]) + pruefe_ingress(geladen)
     for zeile in probleme:
         print(zeile)
     if not probleme:
