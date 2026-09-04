@@ -31,3 +31,9 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
   Test gekennzeichnete Meldung und zeigt sofort, was zurückkam. Daneben steht, wann
   zuletzt zugestellt wurde und ob es ankam.
 - Das Kiosk-Dashboard nennt jetzt ebenfalls den Quelltext (AGPL-3.0).
+
+## 0.6.4
+
+- **Behoben: Das Add-on startete nicht.** Es kam an die eigene Konfiguration nicht
+  heran — der Supervisor legt sie als `root` ab, das Abbild lief als unprivilegierter
+  Benutzer. Der Dienst selbst läuft weiterhin unprivilegiert.
