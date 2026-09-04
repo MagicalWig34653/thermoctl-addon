@@ -16,7 +16,7 @@ arch:
 # Das Abbild, das .github/workflows/docker.yml im thermoctl-Hauptrepository baut und
 # nach ghcr.io veroeffentlicht. Der Supervisor haengt selbst ":{version}" an -- die
 # Versionsnummer oben muss deshalb zu einem tatsaechlich vorhandenen Tag passen
-# (type=semver in docker.yml, also z.B. "0.6.1" fuer den Git-Tag "v0.6.1").
+# (type=semver in docker.yml, also z.B. "0.6.1" für den Git-Tag "v0.6.1").
 image: "ghcr.io/magicalwig34653/thermoctl"
 
 # thermoctl macht keinen Gebrauch von s6-Overlay-Diensten -- der eigene Entrypoint
@@ -41,7 +41,7 @@ boot: auto
 
 # Damit der Supervisor die Zugangsdaten des Home-Assistant-eigenen MQTT-Brokers an das
 # Add-on durchreichen kann, sobald jemand einen Zigbee2MQTT-/Mosquitto-Add-on parallel
-# betreibt. Zugriff auf die dadurch freigegebenen Werte erfolgt ueber die
+# betreibt. Zugriff auf die dadurch freigegebenen Werte erfolgt über die
 # Supervisor-API (/services/mqtt) -- das Uebernehmen in THERMOCTL_MQTT_* ist in dieser
 # Fassung *nicht* automatisiert, siehe Auftragsbericht. Bis dahin traegt der Betreiber
 # die MQTT-Optionen unten selbst ein, genau wie bei einer eigenstaendigen Instanz.
@@ -51,9 +51,9 @@ services:
 # -----------------------------------------------------------------------------------
 # Optionen -- bewusst flach, ohne verschachtelte Gruppen.
 #
-# Der Supervisor prueft die *abgeschickte* Konfiguration gegen dieses Schema, und jede
+# Der Supervisor prüft die *abgeschickte* Konfiguration gegen dieses Schema, und jede
 # hier genannte Gruppe muss darin enthalten sein. Die Oberflaeche laesst eine Gruppe,
-# in der nichts ausgefuellt ist, beim Speichern aber weg -- das Ergebnis war zweimal
+# in der nichts ausgefüllt ist, beim Speichern aber weg -- das Ergebnis war zweimal
 # "Missing option '<gruppe>' in root", auch mit einer leeren Gruppe als Vorgabe. Ein
 # flaches Feld mit "?" ist dagegen schlicht optional und kann nicht fehlen.
 #
@@ -91,7 +91,7 @@ schema:
   database_name: "str?"
 
   # THERMOCTL_MQTT_*. Insgesamt optional; eingeschaltet nimmt thermoctl darueber auch
-  # Befehle entgegen, deshalb ein eigener Broker-Zugang. Die Client-ID gehoert dazu,
+  # Befehle entgegen, deshalb ein eigener Broker-Zugang. Die Client-ID gehört dazu,
   # weil ein Broker mit Rechteverwaltung seine Regeln haeufig daran bindet.
   mqtt_enabled: "bool"
   mqtt_host: "str?"
@@ -113,8 +113,8 @@ schema:
   notify_webhook: "url?"
   notify_webhook_token: "password?"
 
-  # Auffangnetz fuer alles, was hier nicht steht: eine .env, so wie man sie auch neben
-  # docker compose legen wuerde -- eine Zuweisung je Zeile, Rautenzeichen leiten einen
+  # Auffangnetz für alles, was hier nicht steht: eine .env, so wie man sie auch neben
+  # docker compose legen würde -- eine Zuweisung je Zeile, Rautenzeichen leiten einen
   # Kommentar ein. Wird nach den Feldern oben angewandt und kann sie ueberschreiben;
   # eine von aussen gesetzte Umgebungsvariable gewinnt weiterhin gegen beides.
   env: "str?"

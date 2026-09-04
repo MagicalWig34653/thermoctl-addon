@@ -1,8 +1,8 @@
-"""Erzeugt icon.png und logo.png fuer das Home-Assistant-Add-on.
+"""Erzeugt icon.png und logo.png für das Home-Assistant-Add-on.
 
-Gerendert mit dem Chromium, das ohnehin fuer die Browsertests da ist -- kein
-neues Werkzeug, keine neue Abhaengigkeit. Farben stammen aus thermoctl.css:
-warm #b4562f, kuehl #3a6a89, Schiefer #2f3941.
+Gerendert mit dem Chromium, das ohnehin für die Browsertests da ist -- kein
+neues Werkzeug, keine neue Abhängigkeit. Farben stammen aus thermoctl.css:
+warm #b4562f, kühl #3a6a89, Schiefer #2f3941.
 """
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -10,11 +10,11 @@ from playwright.sync_api import sync_playwright
 WARM, KUEHL, SCHIEFER, HELL = "#e8834f", "#79aecd", "#2b343b", "#ffffff"
 
 def zifferblatt(groesse: int, mitte: float, radius_scheibe: float) -> str:
-    """Ein Thermostat-Zifferblatt: Skala von kuehl nach warm, Zeiger im warmen Drittel."""
+    """Ein Thermostat-Zifferblatt: Skala von kühl nach warm, Zeiger im warmen Drittel."""
     m = mitte
     r = radius_scheibe * 0.66          # Radius der Skala
-    breite = radius_scheibe * 0.155     # Strichstaerke der Skala
-    # 270-Grad-Bogen, offen nach unten: von 135 Grad ueber oben bis 405 Grad.
+    breite = radius_scheibe * 0.155     # Strichstärke der Skala
+    # 270-Grad-Bogen, offen nach unten: von 135 Grad über oben bis 405 Grad.
     import math
     def punkt(grad, faktor=1.0):
         b = math.radians(grad)
@@ -44,9 +44,9 @@ ICON = f'''<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" view
 </svg>'''
 
 LOGO = f'''<svg xmlns="http://www.w3.org/2000/svg" width="250" height="100" viewBox="0 0 250 100">
-  <!-- Eigene Flaeche statt transparentem Grund: Das Logo erscheint im Add-on-Store
+  <!-- Eigene Fläche statt transparentem Grund: Das Logo erscheint im Add-on-Store
        je nach Design auf hellem oder dunklem Hintergrund. Schiefergraue Schrift auf
-       transparent waere im dunklen Design unsichtbar. -->
+       transparent wäre im dunklen Design unsichtbar. -->
   <rect x="0" y="0" width="250" height="100" rx="16" fill="{SCHIEFER}"/>
   <g transform="translate(14,18)">{zifferblatt(64, 32, 31).replace(f'fill="{SCHIEFER}"', 'fill="none"')}</g>
   <text x="92" y="60" font-family="-apple-system, Helvetica Neue, Helvetica, Arial, sans-serif"
