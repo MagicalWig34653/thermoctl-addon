@@ -59,13 +59,14 @@ options:
   mqtt:
     enabled: false
     tls: false
+    client_id: thermoctl
     base_topic: zigbee2mqtt
     prefix: thermoctl
-  meross:
-    email: ""
-    password: ""
-  notify:
-    webhook: ""
+# meross und notify stehen bewusst nicht in den Vorgaben. Ein leerer Vorgabewert
+# fuer ein Feld vom Typ "url?" laesst der Supervisor nicht durch -- er prueft den
+# leeren Text gegen die URL-Regel und lehnt das Speichern der gesamten
+# Konfiguration ab ("expected a URL"). Ein Feld ohne Vorgabe ist schlicht nicht
+# gesetzt, und das erlaubt das Fragezeichen im Schema ausdruecklich.
 
 schema:
   # THERMOCTL_SECRET_KEY -- ohne ihn startet die Anwendung nicht (thermoctl/config.py:
@@ -94,8 +95,13 @@ schema:
     host: "str?"
     port: "port?"
     tls: "bool?"
+    ca_cert: "str?"
     username: "str?"
     password: "password?"
+    # THERMOCTL_MQTT_CLIENT_ID, Vorgabe "thermoctl". Gehoert ins Schema, weil ein
+    # Broker mit Rechteverwaltung (etwa EMQX) Regeln haeufig an die Client-ID
+    # bindet -- ohne diese Angabe kaeme thermoctl dort nicht durch.
+    client_id: "str?"
     base_topic: "str?"
     prefix: "str?"
 
