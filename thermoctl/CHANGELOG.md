@@ -82,3 +82,11 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
 - **Die Schnittstellen-Seite liefert die Homebridge-Konfiguration je Zone**, fertig zum
   Kopieren — mit den echten Topics und dem konfigurierten MQTT-Präfix. Zugangsdaten
   stehen nie darin: Homebridge braucht einen eigenen Broker-Zugang mit engen Rechten.
+
+## 0.7.4
+
+- **Behoben: Homebridge nahm die Betriebsart nicht an.** Ein Wechsel von Aus auf Auto
+  bewirkte nichts, und ein fehlender Messwert kam als 0 °C an. Beides lag an der
+  Konfiguration, die thermoctl ausgibt — **wer sie schon eingerichtet hat, holt sich den
+  Block auf der Schnittstellen-Seite neu und ersetzt den alten.**
+- An thermoctls eigenen Topics ändert sich nichts; Home Assistant ist nicht betroffen.
