@@ -50,3 +50,17 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
 - **Eine dezente Ladeanzeige** zeigt an, dass eine Anfrage unterwegs ist — spürbar
   hinter dem Ingress-Proxy, der jede Anfrage einen Umweg nehmen lässt.
 - Das Kiosk nennt den Quelltext (AGPL-3.0), wie es Paragraf 13 verlangt.
+
+## 0.7.1
+
+- **Ein eigener Reverse Proxy kann jetzt direkt auf thermoctl zeigen**, zusätzlich zum
+  Zugang über die Home-Assistant-Seitenleiste. Dafür ist der Container-Port `8000`
+  freigegeben; unter *Konfiguration → Netzwerk* lässt er sich ändern oder leersetzen,
+  dann bleibt es beim Ingress.
+  **Dieser Weg geht an der Anmeldung von Home Assistant vorbei.** Die eigene Anmeldung
+  von thermoctl gilt weiterhin, die Verbindung ist aber unverschlüsseltes HTTP, solange
+  kein Proxy davor TLS beendet.
+- **Passkeys** hängen an einem einzigen Hostnamen: Ist thermoctl über zwei verschiedene
+  Namen erreichbar, funktionieren sie nur unter dem konfigurierten. Die Anmeldung mit
+  Passwort geht unter beiden.
+- Behoben: Die Testmeldung an den Webhook schrieb „Keine Stoerung liegt vor".

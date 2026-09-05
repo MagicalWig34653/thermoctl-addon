@@ -1,6 +1,6 @@
 ---
 name: thermoctl
-version: "0.7.0"
+version: "0.7.1"
 slug: thermoctl
 description: >-
   Sensorbasierte Heizungssteuerung mit Zeitplänen, eigener Anmeldung, REST-API
@@ -26,6 +26,19 @@ init: false
 # Eigene Anmeldung: thermoctl hat eine eigene Benutzerverwaltung, unabhaengig von der
 # Home-Assistant-Anmeldung. Siehe DOCS.md -- Ingress ersetzt sie nicht, man meldet sich
 # zweimal an.
+# Zusaetzlich zum Ingress ein offener Port, damit ein Reverse Proxy direkt auf
+# thermoctl zeigen kann. Der Wert ist die Vorgabe; in Home Assistant laesst er sich
+# unter "Add-on -> Konfiguration -> Netzwerk" aendern oder auf leer setzen, dann wird
+# nichts veroeffentlicht und es bleibt beim Ingress.
+#
+# Wer diesen Weg benutzt, geht an der Anmeldung von Home Assistant vorbei. Es bleibt
+# die eigene Anmeldung von thermoctl -- die ist Pflicht -- aber die Verbindung ist
+# unverschluesseltes HTTP, solange kein Proxy davor TLS beendet.
+ports:
+  8000/tcp: 8000
+ports_description:
+  8000/tcp: Direkter Zugang, etwa fuer einen Reverse Proxy -- geht an Ingress vorbei
+
 ingress: true
 # Der Port, auf dem thermoctl im Container lauscht (Settings.bind_port, Vorgabe 8000).
 # NICHT 0: Das hiesse "der Supervisor sucht sich einen freien Port aus", und ein Add-on
