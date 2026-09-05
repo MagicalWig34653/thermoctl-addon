@@ -64,3 +64,15 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
   Namen erreichbar, funktionieren sie nur unter dem konfigurierten. Die Anmeldung mit
   Passwort geht unter beiden.
 - Behoben: Die Testmeldung an den Webhook schrieb „Keine Stoerung liegt vor".
+
+## 0.7.2
+
+- **Passkeys und der MCP-Token haben jetzt eigene Felder.** Bisher waren sie nur über
+  das freie `env`-Feld erreichbar.
+- **Wichtig zu Passkeys hinter der Seitenleiste:** Als *Relying-Party-Id* gehört der
+  Hostname hinein, unter dem **Home Assistant** erreichbar ist — nicht der von
+  thermoctl. Der Browser sieht die Adresse von Home Assistant, und nur gegen die prüft
+  WebAuthn. Ist Home Assistant ausschliesslich über eine blosse IP-Adresse erreichbar,
+  können Passkeys dort nicht funktionieren; die Anmeldung mit Passwort bleibt.
+- Der MCP-Token ist ein gewöhnliches API-Token. Ihn einzutragen startet **keinen**
+  MCP-Server — der läuft als eigener Einstiegspunkt, nicht in diesem Add-on.

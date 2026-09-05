@@ -1,6 +1,6 @@
 ---
 name: thermoctl
-version: "0.7.1"
+version: "0.7.2"
 slug: thermoctl
 description: >-
   Sensorbasierte Heizungssteuerung mit Zeitplänen, eigener Anmeldung, REST-API
@@ -126,6 +126,22 @@ schema:
   # THERMOCTL_NOTIFY_WEBHOOK[_TOKEN]. Ohne Adresse geht die Stoerungsmeldung nur ins Log.
   notify_webhook: "url?"
   notify_webhook_token: "password?"
+
+  # THERMOCTL_MCP_TOKEN. Ein gewöhnliches API-Token für den MCP-Server. Es allein
+  # startet keinen -- der läuft als eigener Einstiegspunkt (docs/mcp.md im
+  # Anwendungsprojekt), nicht in diesem Container.
+  mcp_token: "password?"
+
+  # THERMOCTL_PASSKEY_*. Die häufigste Fehlerquelle zuerst: Die Relying-Party-Id ist der
+  # Hostname, unter dem **Home Assistant** erreichbar ist -- nicht der von thermoctl.
+  # Hinter Ingress sieht der Browser die Adresse von Home Assistant, und nur gegen die
+  # prüft WebAuthn. Ist Home Assistant ausschliesslich über eine blosse IP-Adresse
+  # erreichbar, können Passkeys dort nicht funktionieren; die Anmeldung mit Passwort
+  # bleibt davon unberührt. passkey_origin braucht Schema und Port, wenn sie vom
+  # Standard abweichen -- Home Assistant läuft üblicherweise auf 8123.
+  passkey_rp_id: "str?"
+  passkey_rp_name: "str?"
+  passkey_origin: "str?"
 
   # Auffangnetz für alles, was hier nicht steht: eine .env, so wie man sie auch neben
   # docker compose legen würde -- eine Zuweisung je Zeile, Rautenzeichen leiten einen
