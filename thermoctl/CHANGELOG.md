@@ -76,3 +76,9 @@ Konfiguration des Add-ons gar nicht, und der Ingress-Pfad blieb leer.
   können Passkeys dort nicht funktionieren; die Anmeldung mit Passwort bleibt.
 - Der MCP-Token ist ein gewöhnliches API-Token. Ihn einzutragen startet **keinen**
   MCP-Server — der läuft als eigener Einstiegspunkt, nicht in diesem Add-on.
+
+## 0.7.3
+
+- **Die Schnittstellen-Seite liefert die Homebridge-Konfiguration je Zone**, fertig zum
+  Kopieren — mit den echten Topics und dem konfigurierten MQTT-Präfix. Zugangsdaten
+  stehen nie darin: Homebridge braucht einen eigenen Broker-Zugang mit engen Rechten.
