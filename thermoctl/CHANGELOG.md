@@ -9,6 +9,15 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.8.1
+
+- Zeigt jetzt auf `thermoctl:0.8.1`. Neu darin: Urlaubsbetrieb, Frostschutz schlägt ein
+  offenes Fenster, Zonen an EIN/AUS-Ventilen schalten beim Lüften nicht mehr ab,
+  Außentemperatur als wählbare Gerätequelle mit Alarm für ein vergessenes Fenster, und
+  eine Fenstererkennung über den Temperatursturz (Vorgabe aus).
+- An der Verpackung selbst hat sich nichts geändert: keine neuen Optionen. Die neuen
+  Einstellungen werden in der Weboberfläche gepflegt, nicht in der Add-on-Konfiguration.
+
 ## 0.6.2
 
 Die erste Fassung, die als Add-on wirklich läuft. Zuvor las das Abbild die
