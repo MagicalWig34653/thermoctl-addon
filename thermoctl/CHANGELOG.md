@@ -9,6 +9,14 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.8.2
+
+- Zeigt jetzt auf `thermoctl:0.8.2`. Fehlerbehebung: In 0.8.1 blieb der beim Start
+  gesetzte Riegel dauerhaft zu, die Anlage schaltete deshalb nichts und die Oberfläche
+  meldete unverändert „Scharf, Neustart fehlt". **Wer 0.8.1 einsetzt, sollte
+  aktualisieren.**
+- An der Verpackung selbst hat sich nichts geändert: keine neuen Optionen.
+
 ## 0.8.1
 
 - Zeigt jetzt auf `thermoctl:0.8.1`. Neu darin: Urlaubsbetrieb, Frostschutz schlägt ein
