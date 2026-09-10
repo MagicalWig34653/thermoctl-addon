@@ -9,6 +9,26 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.0
+
+- Zeigt jetzt auf `thermoctl:0.9.0`.
+- Neu darin: zwei getrennte Weboberflächen für Anlage und Wohnung, gewählt über das
+  UI-Profil der Gruppe, mit Zuhause, Zeitplan und Heizzeit in der Wohnungssicht.
+- Zur nächsten Schaltzeit springen zieht die nächste Zeitplanphase vor, ohne den
+  Wochenplan zu ändern.
+- Abwesenheit senkt die eigenen Räume für einen gewählten Zeitraum ab.
+- Problemmeldungen nutzen den bereits vorhandenen Störungs-Webhook.
+- Ein persönlicher Bereich bündelt Passwort, Passkeys und Sitzungen für beide
+  Oberflächen.
+- **Beim Upgrade wird keine bestehende Gruppe umklassifiziert:** Jede behält die
+  Anlagenoberfläche, auch eine, die „Mieter“ heißt, denn ein Gruppenname bestimmt
+  weder Oberfläche noch Rechte. Wer eine Mietergruppe will, setzt das UI-Profil
+  ausdrücklich in der Gruppenverwaltung von thermoctl. Auch das neue Recht
+  `report.create` bekommt keine bestehende Gruppe automatisch, weil eine Meldung
+  nach außen nicht allein aus einem Leserecht folgen darf.
+- An der Verpackung selbst hat sich nichts geändert: keine neuen Optionen. Die neuen
+  Einstellungen werden in der Weboberfläche gepflegt, nicht in der Add-on-Konfiguration.
+
 ## 0.8.2
 
 - Zeigt jetzt auf `thermoctl:0.8.2`. Fehlerbehebung: In 0.8.1 blieb der beim Start
