@@ -9,6 +9,26 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.1
+
+- Zeigt jetzt auf `thermoctl:0.9.1`. Reine Fehlerbehebung, am selben Tag wie 0.9.0.
+  **Wer 0.9.0 einsetzt oder im Browser offen hatte, sollte aktualisieren:** veraltetes
+  CSS aus dem Browser-Zwischenspeicher traf genau diese Fassung, weil `StaticFiles`
+  bislang ohne `Cache-Control` auslieferte und Browser heuristisch cachten.
+- Behoben: veraltetes CSS nach einem Update (jede Asset-URL trägt jetzt eine aus
+  Versionsnummer und Dateiinhalt gebildete Kennung, `/static` liefert dazu passende
+  Cache-Vorgaben, und ein Tab mit noch offener Seite erzwingt bei veralteter Kennung
+  eine echte Navigation statt eines Teil-Updates); zähes Laden der Oberfläche
+  (Seitenskripte laden nur noch, wenn die jeweilige Seite sie wirklich braucht);
+  404-Fehler auf fehlende Source-Maps der mitgelieferten Bibliotheken; eine
+  Geräteliste, die wie Zonenkacheln vom Dashboard aussah, dazu eine Seitenleiste und
+  eine Kopfleiste, die nicht sauber mitwuchsen.
+- Beim Upgrade ist nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen. Der erste Aufruf nach dem Update lädt die
+  Oberfläche einmal vollständig neu, weil sich mit der Versionsnummer auch die
+  Kennung aller Asset-URLs ändert — das ist gewollt und genau die Behebung.
+- An der Verpackung selbst ändert sich nichts: keine neuen Optionen.
+
 ## 0.9.0
 
 - Zeigt jetzt auf `thermoctl:0.9.0`.
