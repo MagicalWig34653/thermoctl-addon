@@ -9,6 +9,20 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.3
+
+- Zeigt jetzt auf `thermoctl:0.9.3`. Nachtrag zu 0.9.2: dieselbe Ursache, die zweite
+  Stelle. **Wer die Betriebsseite benutzt, sollte aktualisieren.**
+- Behoben: Die Betriebsseite las noch immer die gesamte Entscheidungshistorie aller
+  Räume, die die Übersicht in 0.9.2 schon losgeworden war. Gemessen an zehn Räumen mit
+  dreißig Tagen Historie: 5,1 Sekunden für diese eine Abfrage, jetzt 0,14 Sekunden.
+  Die Abfrage steht jetzt nur noch an einer Stelle, damit sich das nicht ein drittes
+  Mal wiederholt.
+- Die Regelung selbst ist unberührt: schneller abgefragt, nicht anders entschieden.
+- Beim Upgrade ist nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen.
+- An der Verpackung selbst ändert sich nichts: keine neuen Optionen.
+
 ## 0.9.2
 
 - Zeigt jetzt auf `thermoctl:0.9.2`. Nachtrag zu 0.9.1: dieselbe Beschwerde über die
