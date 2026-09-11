@@ -9,6 +9,27 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.4
+
+- Zeigt jetzt auf `thermoctl:0.9.4`. **Wer Meross-Steckdosen schaltet, sollte
+  aktualisieren.**
+- Behoben: thermoctl sperrte sich selbst aus der Meross-Cloud aus und kam ohne Zutun
+  nicht wieder heraus. Ein gescheiterter Schaltbefehl verwarf die Sitzung, der nächste
+  Regelzyklus meldete sich neu an, die Cloud lehnte wegen zu häufiger Anmeldungen ab —
+  und von vorn, alle 32 Sekunden. Jetzt wartet eine abgelehnte Anmeldung, verdoppelnd
+  von einer Minute bis höchstens dreißig.
+- Geräteabgleich und Schaltweg teilen sich jetzt eine Sitzung: von rund 28 auf rund 4
+  Anmeldungen am Tag.
+- Der Grund einer abgelehnten Anmeldung steht jetzt im Schaltprotokoll, nicht nur im
+  Add-on-Protokoll. Er trägt nur, was die Cloud selbst gemeldet hat — nie Konto oder
+  Passwort.
+- Behoben: im Schaltprotokoll brachen Wörter mitten durch.
+- **Steckt die Anlage gerade in der Sperre, löst sich das nach dem Update von selbst.**
+  Die Wartezeit lässt die Sperre ablaufen, statt sie weiter zu erneuern.
+- Beim Upgrade sonst nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen. An der Verpackung ändert sich nichts: keine neuen
+  Optionen.
+
 ## 0.9.3
 
 - Zeigt jetzt auf `thermoctl:0.9.3`. Nachtrag zu 0.9.2: dieselbe Ursache, die zweite
