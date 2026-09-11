@@ -9,6 +9,22 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.2
+
+- Zeigt jetzt auf `thermoctl:0.9.2`. Nachtrag zu 0.9.1: dieselbe Beschwerde über die
+  träge Oberfläche, aber die zweite und größere Hälfte der Ursache. **Wer die Anlage
+  länger als ein paar Wochen betreibt, sollte aktualisieren** — der Fehler wurde mit
+  jedem Betriebstag schlimmer.
+- Behoben: Die Übersicht las bei jedem Aufruf die gesamte Entscheidungshistorie aller
+  Räume, nur um je Raum den neuesten Eintrag zu behalten. Die Aufbewahrung steht
+  vorgabemäßig auf 365 Tage, und die Regelung schreibt je Raum und Zyklus einen
+  Eintrag — nach Monaten Betrieb sind das Hunderttausende. Gemessen an zehn Räumen mit
+  dreißig Tagen Historie: 5,1 Sekunden vorher, 0,14 Sekunden nachher.
+- Die Regelung selbst ist unberührt: schneller abgefragt, nicht anders entschieden.
+- Beim Upgrade ist nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen.
+- An der Verpackung selbst ändert sich nichts: keine neuen Optionen.
+
 ## 0.9.1
 
 - Zeigt jetzt auf `thermoctl:0.9.1`. Reine Fehlerbehebung, am selben Tag wie 0.9.0.
