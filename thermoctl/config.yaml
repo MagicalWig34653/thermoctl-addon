@@ -48,6 +48,7 @@ ingress: true
 ingress_port: 8000
 panel_icon: mdi:thermostat-auto
 panel_title: "Heizungssteuerung"
+panel_admin: false
 
 # Web-App: startet als Reaktion auf Anfragen, keine feste, zeitkritische Systemaufgabe.
 startup: application
