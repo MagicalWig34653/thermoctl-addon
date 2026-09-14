@@ -9,6 +9,21 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.5
+
+- Zeigt jetzt auf `thermoctl:0.9.5`. An der Anwendung ändert sich gegenüber 0.9.4
+  nichts — die neue Nummer gibt es nur, weil Home Assistant eine geänderte
+  `config.yaml` erst mit einer neuen Version übernimmt.
+- **Der Eintrag in der Seitenleiste ist jetzt für alle Home-Assistant-Nutzer
+  sichtbar, nicht nur für Administratoren** (`panel_admin: false`). Bisher galt die
+  Vorgabe des Supervisors, und wer in Home Assistant kein Administrator war, sah
+  thermoctl gar nicht. Wer was darf, entscheidet weiterhin allein thermoctls eigene
+  Anmeldung — Home Assistant zeigt nur den Weg dorthin. Wer den Eintrag bewusst nur
+  Administratoren zeigen will, kann das in Home Assistant nicht je Nutzer
+  einstellen; das Add-on müsste dann `panel_admin: true` tragen.
+- Beim Upgrade sonst nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen. Keine neuen Optionen.
+
 ## 0.9.4
 
 - Zeigt jetzt auf `thermoctl:0.9.4`. **Wer Meross-Steckdosen schaltet, sollte

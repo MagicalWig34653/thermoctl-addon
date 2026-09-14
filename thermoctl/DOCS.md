@@ -24,7 +24,9 @@ Oberfläche umzulegen und weiterzumachen.
 Auch mit eingeschaltetem Ingress ersetzt Ingress diese Anmeldung nicht — Sie melden
 sich also zweimal an: einmal bei Home Assistant, um über die Seitenleiste ins Add-on zu
 gelangen, und ein zweites Mal bei thermoctl selbst, mit einem eigenen Benutzerkonto.
-Das erste Konto legen Sie beim ersten Öffnen der Oberfläche an.
+Das erste Konto legen Sie beim ersten Öffnen der Oberfläche an. Der Eintrag in der
+Seitenleiste erscheint seit 0.9.5 jedem Home-Assistant-Nutzer, nicht nur
+Administratoren — ohne thermoctl-Konto kommt aber niemand über die Anmeldeseite hinaus.
 
 Ab 0.9.0 gibt es zwei Oberflächen: Anlage und Wohnung. Welche jemand bekommt,
 bestimmen die UI-Profile seiner Gruppen; die Wohnungssicht erscheint nur, wenn er
