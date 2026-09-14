@@ -26,6 +26,16 @@ sich also zweimal an: einmal bei Home Assistant, um über die Seitenleiste ins A
 gelangen, und ein zweites Mal bei thermoctl selbst, mit einem eigenen Benutzerkonto.
 Das erste Konto legen Sie beim ersten Öffnen der Oberfläche an.
 
+Ab 0.9.0 gibt es zwei Oberflächen: Anlage und Wohnung. Welche jemand bekommt,
+bestimmen die UI-Profile seiner Gruppen; die Wohnungssicht erscheint nur, wenn er
+mindestens einer Gruppe angehört und alle seine Gruppen das Wohnungsprofil haben.
+Was er darin darf, bestimmen weiterhin die Rechte. Beim Upgrade behalten alle
+bestehenden Gruppen die Anlagenoberfläche, auch
+eine Gruppe namens „Mieter“. Für eine Mietergruppe setzen Sie das UI-Profil in der
+Gruppenverwaltung von thermoctl ausdrücklich auf Wohnung. Das Recht `report.create`
+für Problemmeldungen müssen Sie ebenfalls ausdrücklich vergeben — keine bestehende
+Gruppe erhält es beim Upgrade automatisch.
+
 ## Installation
 
 1. Fügen Sie dieses Repository unter *Einstellungen → Add-ons → Add-on-Store → ⋮ →
@@ -77,11 +87,10 @@ Add-on-Protokoll, nicht nach außen.
 
 ## Grenzen dieser Fassung
 
-- Passkeys/WebAuthn sind über dieses Add-on nicht einstellbar.
+- Passkeys/WebAuthn lassen sich über `passkey_rp_id`, `passkey_rp_name` und
+  `passkey_origin` einstellen; hinter Ingress ist der Hostname von Home Assistant
+  maßgeblich, weil der Browser dessen Adresse sieht.
 - Der MCP-Server läuft nicht als Teil dieses Add-ons.
-
-Beides ist bewusst nicht Teil dieser ersten Add-on-Fassung — siehe das begleitende
-`CHANGELOG.md` und der Bericht zur Aufgabe, die dieses Repository angelegt hat.
 
 ## Support
 

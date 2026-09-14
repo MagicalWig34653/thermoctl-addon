@@ -9,6 +9,97 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.9.4
+
+- Zeigt jetzt auf `thermoctl:0.9.4`. **Wer Meross-Steckdosen schaltet, sollte
+  aktualisieren.**
+- Behoben: thermoctl sperrte sich selbst aus der Meross-Cloud aus und kam ohne Zutun
+  nicht wieder heraus. Ein gescheiterter Schaltbefehl verwarf die Sitzung, der nächste
+  Regelzyklus meldete sich neu an, die Cloud lehnte wegen zu häufiger Anmeldungen ab —
+  und von vorn, alle 32 Sekunden. Jetzt wartet eine abgelehnte Anmeldung, verdoppelnd
+  von einer Minute bis höchstens dreißig.
+- Geräteabgleich und Schaltweg teilen sich jetzt eine Sitzung: von rund 28 auf rund 4
+  Anmeldungen am Tag.
+- Der Grund einer abgelehnten Anmeldung steht jetzt im Schaltprotokoll, nicht nur im
+  Add-on-Protokoll. Er trägt nur, was die Cloud selbst gemeldet hat — nie Konto oder
+  Passwort.
+- Behoben: im Schaltprotokoll brachen Wörter mitten durch.
+- **Steckt die Anlage gerade in der Sperre, löst sich das nach dem Update von selbst.**
+  Die Wartezeit lässt die Sperre ablaufen, statt sie weiter zu erneuern.
+- Beim Upgrade sonst nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen. An der Verpackung ändert sich nichts: keine neuen
+  Optionen.
+
+## 0.9.3
+
+- Zeigt jetzt auf `thermoctl:0.9.3`. Nachtrag zu 0.9.2: dieselbe Ursache, die zweite
+  Stelle. **Wer die Betriebsseite benutzt, sollte aktualisieren.**
+- Behoben: Die Betriebsseite las noch immer die gesamte Entscheidungshistorie aller
+  Räume, die die Übersicht in 0.9.2 schon losgeworden war. Gemessen an zehn Räumen mit
+  dreißig Tagen Historie: 5,1 Sekunden für diese eine Abfrage, jetzt 0,14 Sekunden.
+  Die Abfrage steht jetzt nur noch an einer Stelle, damit sich das nicht ein drittes
+  Mal wiederholt.
+- Die Regelung selbst ist unberührt: schneller abgefragt, nicht anders entschieden.
+- Beim Upgrade ist nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen.
+- An der Verpackung selbst ändert sich nichts: keine neuen Optionen.
+
+## 0.9.2
+
+- Zeigt jetzt auf `thermoctl:0.9.2`. Nachtrag zu 0.9.1: dieselbe Beschwerde über die
+  träge Oberfläche, aber die zweite und größere Hälfte der Ursache. **Wer die Anlage
+  länger als ein paar Wochen betreibt, sollte aktualisieren** — der Fehler wurde mit
+  jedem Betriebstag schlimmer.
+- Behoben: Die Übersicht las bei jedem Aufruf die gesamte Entscheidungshistorie aller
+  Räume, nur um je Raum den neuesten Eintrag zu behalten. Die Aufbewahrung steht
+  vorgabemäßig auf 365 Tage, und die Regelung schreibt je Raum und Zyklus einen
+  Eintrag — nach Monaten Betrieb sind das Hunderttausende. Gemessen an zehn Räumen mit
+  dreißig Tagen Historie: 5,1 Sekunden vorher, 0,14 Sekunden nachher.
+- Die Regelung selbst ist unberührt: schneller abgefragt, nicht anders entschieden.
+- Beim Upgrade ist nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen.
+- An der Verpackung selbst ändert sich nichts: keine neuen Optionen.
+
+## 0.9.1
+
+- Zeigt jetzt auf `thermoctl:0.9.1`. Reine Fehlerbehebung, am selben Tag wie 0.9.0.
+  **Wer 0.9.0 einsetzt oder im Browser offen hatte, sollte aktualisieren:** veraltetes
+  CSS aus dem Browser-Zwischenspeicher traf genau diese Fassung, weil `StaticFiles`
+  bislang ohne `Cache-Control` auslieferte und Browser heuristisch cachten.
+- Behoben: veraltetes CSS nach einem Update (jede Asset-URL trägt jetzt eine aus
+  Versionsnummer und Dateiinhalt gebildete Kennung, `/static` liefert dazu passende
+  Cache-Vorgaben, und ein Tab mit noch offener Seite erzwingt bei veralteter Kennung
+  eine echte Navigation statt eines Teil-Updates); zähes Laden der Oberfläche
+  (Seitenskripte laden nur noch, wenn die jeweilige Seite sie wirklich braucht);
+  404-Fehler auf fehlende Source-Maps der mitgelieferten Bibliotheken; eine
+  Geräteliste, die wie Zonenkacheln vom Dashboard aussah, dazu eine Seitenleiste und
+  eine Kopfleiste, die nicht sauber mitwuchsen.
+- Beim Upgrade ist nichts zu tun: keine neue Migration, keine neue Einstellung, keine
+  Änderung an Rechten oder Gruppen. Der erste Aufruf nach dem Update lädt die
+  Oberfläche einmal vollständig neu, weil sich mit der Versionsnummer auch die
+  Kennung aller Asset-URLs ändert — das ist gewollt und genau die Behebung.
+- An der Verpackung selbst ändert sich nichts: keine neuen Optionen.
+
+## 0.9.0
+
+- Zeigt jetzt auf `thermoctl:0.9.0`.
+- Neu darin: zwei getrennte Weboberflächen für Anlage und Wohnung, gewählt über das
+  UI-Profil der Gruppe, mit Zuhause, Zeitplan und Heizzeit in der Wohnungssicht.
+- Zur nächsten Schaltzeit springen zieht die nächste Zeitplanphase vor, ohne den
+  Wochenplan zu ändern.
+- Abwesenheit senkt die eigenen Räume für einen gewählten Zeitraum ab.
+- Problemmeldungen nutzen den bereits vorhandenen Störungs-Webhook.
+- Ein persönlicher Bereich bündelt Passwort, Passkeys und Sitzungen für beide
+  Oberflächen.
+- **Beim Upgrade wird keine bestehende Gruppe umklassifiziert:** Jede behält die
+  Anlagenoberfläche, auch eine, die „Mieter“ heißt, denn ein Gruppenname bestimmt
+  weder Oberfläche noch Rechte. Wer eine Mietergruppe will, setzt das UI-Profil
+  ausdrücklich in der Gruppenverwaltung von thermoctl. Auch das neue Recht
+  `report.create` bekommt keine bestehende Gruppe automatisch, weil eine Meldung
+  nach außen nicht allein aus einem Leserecht folgen darf.
+- An der Verpackung selbst hat sich nichts geändert: keine neuen Optionen. Die neuen
+  Einstellungen werden in der Weboberfläche gepflegt, nicht in der Add-on-Konfiguration.
+
 ## 0.8.2
 
 - Zeigt jetzt auf `thermoctl:0.8.2`. Fehlerbehebung: In 0.8.1 blieb der beim Start
