@@ -5,6 +5,24 @@ Weboberfläche — dazu ansprechbar über REST-API und MCP-Server. Der Quelltext
 unter der [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) und liegt vollständig
 unter <https://github.com/MagicalWig34653/thermoctl>.
 
+## So sieht es aus
+
+Zwei Oberflächen, je nach Gruppe: die **Anlagensicht** für Verwaltung und Technik —
+
+![Startseite der Anlagensicht mit mehreren Zonen, je mit Ist-Wert, Sollwert samt Begründung und Zeitplan-Band](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/anlage-startseite.png)
+
+— und die **Wohnungssicht** für die Bewohner eines Raums, hier auf dem Telefon:
+
+![Wohnungssicht auf dem Handy mit den eigenen Räumen, Temperatur, Sollwert und Knöpfen für vorübergehende Änderungen](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/wohnung-startseite-mobil.png)
+
+Dazu ein Kiosk-Dashboard für ein Wandtablet, hinter einem eigenen, widerrufbaren Token:
+
+![Kiosk-Dashboard mit mehreren Zonen nebeneinander, je mit Ist-Temperatur und Sollwert-Reglern](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/kiosk-dashboard.png)
+
+Eine ausführliche Bedienungsanleitung mit weiteren Bildern für beide Oberflächen steht
+in [`docs/bedienung.md`](https://github.com/MagicalWig34653/thermoctl/blob/main/docs/bedienung.md)
+des Hauptrepositories.
+
 ## Wichtig, bevor Sie anfangen
 
 **thermoctl steuert eine echte Heizung.** Es ist keine Simulation und kein Spielzeug —
@@ -27,6 +45,8 @@ gelangen, und ein zweites Mal bei thermoctl selbst, mit einem eigenen Benutzerko
 Das erste Konto legen Sie beim ersten Öffnen der Oberfläche an. Der Eintrag in der
 Seitenleiste erscheint seit 0.9.5 jedem Home-Assistant-Nutzer, nicht nur
 Administratoren — ohne thermoctl-Konto kommt aber niemand über die Anmeldeseite hinaus.
+
+![Anmeldeseite von thermoctl mit den Feldern Benutzername und Passwort](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/oeffentlich-anmeldung.png)
 
 Ab 0.9.0 gibt es zwei Oberflächen: Anlage und Wohnung. Welche jemand bekommt,
 bestimmen die UI-Profile seiner Gruppen; die Wohnungssicht erscheint nur, wenn er
