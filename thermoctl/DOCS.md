@@ -19,6 +19,10 @@ Dazu ein Kiosk-Dashboard für ein Wandtablet, hinter einem eigenen, widerrufbare
 
 ![Kiosk-Dashboard mit mehreren Zonen nebeneinander, je mit Ist-Temperatur und Sollwert-Reglern](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/kiosk-dashboard.png)
 
+Für kleine Wandtablets (480×480, z. B. Sonoff NSPanel Pro Gen2) gibt es zusätzlich eine
+kompakte Panel-Ansicht: alle Zonen als Raster, ein Antippen öffnet die Zone im Detail.
+Umschaltbar über `?ansicht=panel`, `?ansicht=tafel` oder `?ansicht=auto` (Vorgabe).
+
 Eine ausführliche Bedienungsanleitung mit weiteren Bildern für beide Oberflächen steht
 in [`docs/bedienung.md`](https://github.com/MagicalWig34653/thermoctl/blob/main/docs/bedienung.md)
 des Hauptrepositories.

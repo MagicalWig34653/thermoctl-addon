@@ -9,6 +9,48 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.10.0
+
+- Zeigt jetzt auf `thermoctl:0.10.0`.
+- **Neu: eine zweite, kompakte Kiosk-Ansicht für kleine Wandtabletts
+  (480×480, z. B. Sonoff NSPanel Pro Gen2).** Neben der bisherigen,
+  scrollenden Tafel-Darstellung gibt es jetzt ein festes 2-Spalten-Raster mit
+  allen Zonen auf einen Blick und einen flächendeckenden Detailbereich je
+  Zone. Umschaltbar über `?ansicht=panel`/`?ansicht=tafel`/`?ansicht=auto`
+  (Vorgabe: automatisch nach Bildschirmbreite), gemerkt in einem eigenen
+  Cookie (`thermoctl_kiosk_ansicht`) -- ohne Einfluss auf Token, Rechte oder
+  Sitzung.
+- Ein zweiter, schneller Tipp auf "Sollwert anheben" am Kiosk-Wandtablett
+  konnte bisher wirkungslos verschwinden. Der Knopf sperrt sich jetzt
+  sichtbar für die Dauer der eigenen Anfrage.
+- Auf „Bediengeräte" gingen gespeicherte Kanaleinstellungen (Kanalart,
+  Quellgerät, Zone, fester Text/feste Zahl) beim nächsten Laden verloren
+  oder zeigten einen falschen Wert an -- behoben. Eine feste Zahl mit
+  mehreren Nachkommastellen wird jetzt ungerundet angezeigt.
+- `/tokens` und `/kiosk-tokens` stürzten mit Serverfehler ab, wenn die
+  Gültigkeitsdauer keine Zahl war -- zeigen jetzt eine Fehlermeldung im
+  Formular.
+- Die mobile Navigation der Anlagensicht öffnete außerhalb des Sichtbereichs,
+  wenn die Seite zuvor gescrollt war. Der Kopfzeilen-Knopf „Navigation" ist
+  entfernt; „Mehr" ist jetzt der einzige mobile Zugang und öffnet die
+  Seitenleiste als feste Schublade über dem Inhalt, unabhängig von der
+  Scrollposition.
+- Mehrere behobene Zeilenumbrüche mitten im Wort und zu enge Spalten in
+  Tabellen (Schaltprotokoll, Benutzer, Geräte, Zonen, Schnittstellen,
+  Einstellungen, Gruppen, Tokens, Kiosk-Tokens, Audit-Protokoll,
+  Bediengeräte, Geräte-Zuordnung) bei 1280 px und 390 px.
+- Zwei Knöpfe am Kiosk-Wandtablett ("Nächste Schaltung vorziehen",
+  "Übersteuerung aufheben") kamen auf 42 statt 44 px Mindestgröße für ein
+  Tippziel -- betraf jeden Knopf im Programm, nicht nur diese zwei.
+- Die README und zwei neue Anleitungen (`docs/bedienung.md` für den
+  Betreiber, `docs/wohnung.md` zum Weitergeben an Bewohner) zeigen jetzt
+  Bildschirmfotos der Oberfläche.
+- Beim Upgrade nichts zu tun: keine neue Migration, keine neue Einstellung,
+  keine Änderung an Rechten oder Gruppen. An der Verpackung selbst ändert
+  sich nichts: keine neuen Optionen. Neu ist ein Cookie
+  (`thermoctl_kiosk_ansicht`), das ohne Zutun beim ersten Wechsel der
+  Kiosk-Ansicht entsteht.
+
 ## 0.9.5
 
 - Zeigt jetzt auf `thermoctl:0.9.5`. An der Anwendung ändert sich gegenüber 0.9.4
