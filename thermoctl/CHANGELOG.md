@@ -9,6 +9,27 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.10.1
+
+- Zeigt jetzt auf `thermoctl:0.10.1`.
+- **Zonen → Regelparameter hat nur noch einen Speichern-Knopf.** Der Schalter
+  „Fenster aus Temperatursturz erkennen“ stand bisher in einem eigenen Formular;
+  wer ihn umlegte und den großen Knopf drückte, verlor die Änderung.
+- Die Minus-/Plus-Knöpfe am Sollwert (Übersicht, Wohnungssicht, Kiosk) sitzen jetzt
+  unabhängig von der Schrift des Endgeräts mittig; der Knopf auf der Übersicht ist
+  auf 44 px Tippfläche gewachsen.
+- **PI-Regelung (Beta), nur relevant für Zonen mit eingeschaltetem PI:**
+  - Ein veralteter Raumfühler wurde übersehen, solange gleichzeitig die
+    Mindestschaltdauer der Hysterese griff — PI regelte dann mit dem alten Messwert
+    weiter. Jetzt fällt die Zone in diesem Fall wie jede andere auf die
+    Sicherheitsregel zurück.
+  - Eine Phase, die unter Hysterese begonnen hat, hält deren Mindestdauer auch dann,
+    wenn PI währenddessen übernimmt (etwa nach Sensorrückkehr, Fenster zu, Ende des
+    Aus-Modus).
+  - Der Entscheidungsgrund nannte die Hysterese-Mindestdauer, obwohl PI schaltete.
+- Beim Upgrade nichts zu tun: keine Migration, keine neue Einstellung, keine neuen
+  Optionen.
+
 ## 0.10.0
 
 - Zeigt jetzt auf `thermoctl:0.10.0`.
