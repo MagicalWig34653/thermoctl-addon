@@ -9,6 +9,53 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.11.0
+
+- Zeigt jetzt auf `thermoctl:0.11.0`.
+
+### ⚠ Verhaltensänderung beim Upgrade
+
+**Der Notbetrieb bei Sensorausfall wird für alle bestehenden Zonen automatisch
+aktiviert; neu angelegte Zonen starten ebenfalls damit.** Bis 0.10.1 tat `thermoctl`
+bei einem Sensorausfall nichts Eigenes, jetzt greift es ein:
+
+- Fällt in einer Zone der Temperatursensor aus — und gibt es keine brauchbare
+  Ersatzquelle über die Thermostat-Thermometer der Zone —, **takten Fußbodenkreise**
+  (Vorgabe 10 Minuten an, 20 Minuten aus; nach der Außentemperatur-Kennlinie, sobald
+  ein Außenwert vorliegt).
+- **Heizkörper-Thermostate werden einmal** auf `manual` und den Notsollwert
+  (Vorgabe 20 °C) gestellt und danach nicht mehr angesprochen. Sie regeln dann selbst.
+- **Bei Rückkehr** des Sensors wird der vorherige `operating_mode` des Thermostats
+  einmal zurückgeschrieben.
+- **Meldung** bei Beginn und bei Entwarnung (Schalter `notify_sensor_faults`).
+
+**Wer das für eine Zone nicht will:** unter „Parameter" der Zone
+(Zonen → Regelparameter) „Notbetrieb für diese Zone aktivieren" ausschalten.
+
+**Ein Downgrade** (Alembic `downgrade` unter `d4a81c6e5b29`) setzt den Notbetrieb für
+**alle** Zonen auf aus; wer ihn vorher von Hand für einzelne Zonen eingeschaltet hatte,
+muss ihn nach erneutem Upgrade selbst wieder setzen.
+
+### Neu in der Anwendung
+
+- Ersatzquelle mit Echo-Regel: Bei Ausfall des Raumfühlers gilt die kälteste
+  Thermostat-Messung der Zone (Ausgleichswert je Thermostat einstellbar). Ein Messwert
+  zählt erst 30 Minuten nach dem letzten Sendeversuch an das Thermostat.
+- Betriebsseite mit Vergleich Ersatzquelle ↔ Wandfühler und vorgeschlagenem
+  Ausgleichswert; Konfiguration über Oberfläche, REST und MCP.
+- Eine Störungsmeldung und eine Entwarnung je Episode; nach einem Neustart zwischen
+  Markierung und Versand wird einmal wiederholt.
+
+### Korrekturen
+
+- Downgrade-Migrationen vertragen vorhandene Betriebsdaten.
+- Das Notbetriebs-Formular speichert ganz oder gar nicht; unvollständige
+  Kennlinienzeilen werden abgewiesen.
+- Beim Eintritt in den Notbetrieb und bei der Rückkehr zählt die reale
+  Mindest-Ein-/Aus-Dauer des Relais.
+
+Migrationen laufen beim Start automatisch (Kopf `e5b92d7f3a18`).
+
 ## 0.10.1
 
 - Zeigt jetzt auf `thermoctl:0.10.1`.

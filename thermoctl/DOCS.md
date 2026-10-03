@@ -111,6 +111,14 @@ tut nichts.
 Optional. Ohne eingetragene Webhook-Adresse geht eine Störungsmeldung nur ins
 Add-on-Protokoll, nicht nach außen.
 
+### Notbetrieb bei Sensorausfall
+
+Seit 0.11.0 ist der Notbetrieb für jede Zone automatisch aktiv: Fällt der Raumfühler aus
+und gibt es keine brauchbare Ersatzquelle, takten Fußbodenkreise, und Heizkörper-Thermostate
+werden einmal auf `manual` mit Notsollwert gestellt. Einstellbar unter „Regelvorgaben“
+(anlagenweit) und „Zonen → Regelparameter“ (je Zone, dort auch abschaltbar). Meldungen
+laufen über den Störungs-Webhook, abschaltbar mit `notify_sensor_faults`.
+
 ## Grenzen dieser Fassung
 
 - Passkeys/WebAuthn lassen sich über `passkey_rp_id`, `passkey_rp_name` und
