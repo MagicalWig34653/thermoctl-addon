@@ -9,6 +9,24 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.11.1
+
+- Zeigt jetzt auf `thermoctl:0.11.1`.
+- **Wichtig, wenn du unter 0.11.0 Ausgleichswerte für Thermostate gesetzt hast:** Das
+  Formular unter Zonen → Regelparameter zeigte sie nicht an, und ein Speichern der Seite
+  (Berechtigung `device.manage`) löschte sie still. Das ist behoben: Der gespeicherte Wert
+  steht im Feld, ein Speichern ohne Änderung lässt ihn stehen. **Wer die Seite unter 0.11.0
+  gespeichert hat, muss die Ausgleichswerte einmal neu eintragen.** Ein leeres Feld entfernt
+  den Wert weiterhin (die Zone rechnet dann wie mit 0 K), das steht jetzt als Hinweis am Feld.
+- Der Notbetriebs-Hinweis nennt bei Zonen mit Thermostat und Fußbodenkreis beide
+  Verhaltensweisen („Thermostat regelt selbst; Fußboden taktet 10/20 min").
+- Entscheidungsgründe lesen sich einheitlich (Dezimalkomma, Leerzeichen vor der Einheit); bei
+  der PI-Regelung heißt es „Abweichung" statt „Fehler", der Tastgrad steht gerundet in
+  Prozent. Nur Text, die Regelung ist unverändert.
+- Schaltprotokoll: Lange Ergebnis- und Begründungstexte laufen bei breiten Bildschirmen nicht
+  mehr über ihre Spalte hinaus.
+- Beim Upgrade nichts zu tun: keine Migration, keine neue Einstellung, keine neuen Optionen.
+
 ## 0.11.0
 
 - Zeigt jetzt auf `thermoctl:0.11.0`.
