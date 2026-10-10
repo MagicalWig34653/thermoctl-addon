@@ -9,6 +9,27 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.12.0
+
+- Zeigt jetzt auf `thermoctl:0.12.0`.
+- **Beim Upgrade zu wissen:** Es läuft **eine Datenbankmigration** (zwei neue Spalten an der
+  Tabelle der Schattenentscheidungen und ein Index). Sie läuft beim Start von selbst und
+  braucht auf großen Beständen (einige hunderttausend Zeilen) einige Sekunden. Vor dem Upgrade
+  eine Sicherung der Datenbank anzulegen ist wie immer sinnvoll. Ein Downgrade auf 0.11.1 ist
+  über die Migration zurück möglich; die beiden neuen Spalten gehen dabei verloren.
+- Neu in der Anwendung:
+  - Die **Sonnenabsenkung** steht jetzt als Eintrag im Schaltprotokoll (Beginn, Änderung,
+    Ende). An der Regelung selbst ändert sich nichts. Absenkungen vor dem Upgrade erscheinen
+    dort nicht.
+  - **Temperaturverlauf je Zone** im Reiter Zonendaten (24 Stunden, 3 oder 7 Tage, mit
+    Vollbild): Ist-Temperatur, Zeitplan-Soll, wirksamer Soll, Sonnenabsenkung und
+    Heizanforderung.
+  - **Glossar** unter `/glossar` mit 54 Fachbegriffen und kleinen Hilfe-Symbolen an
+    erklärungsbedürftigen Stellen.
+  - Korrigierte Hinweise zum Notbetrieb und zum Scharfschalten (der zweite Riegel gilt für
+    MQTT und Meross).
+- Keine neuen Optionen, keine geänderten Vorgaben.
+
 ## 0.11.1
 
 - Zeigt jetzt auf `thermoctl:0.11.1`.
