@@ -9,6 +9,14 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.14.2
+
+- Zeigt jetzt auf `thermoctl:0.14.2`.
+- **Beim Upgrade zu wissen:** Nichts zu tun, keine Migration, keine neue Einstellung.
+- Korrigiert: Die Zustimmungsseite der OAuth-Anmeldung wird als normaler Seitenwechsel
+  abgeschickt, sodass die Weiterleitung zum Client (z. B. claude.ai) gelingt; vorher blieb die
+  Zustimmung dort stecken. Bearer-Token waren nicht betroffen.
+
 ## 0.14.1
 
 - Zeigt jetzt auf `thermoctl:0.14.1`. (Eine Add-on-Version 0.14.0 gab es nicht; dieser
