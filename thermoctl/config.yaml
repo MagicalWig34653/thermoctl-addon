@@ -1,6 +1,6 @@
 ---
 name: thermoctl
-version: "0.13.0"
+version: "0.14.1"
 slug: thermoctl
 description: >-
   Sensorbasierte Heizungssteuerung mit Zeitplänen, eigener Anmeldung, REST-API
@@ -34,10 +34,20 @@ init: false
 # Wer diesen Weg benutzt, geht an der Anmeldung von Home Assistant vorbei. Es bleibt
 # die eigene Anmeldung von thermoctl -- die ist Pflicht -- aber die Verbindung ist
 # unverschluesseltes HTTP, solange kein Proxy davor TLS beendet.
+#
+# Zweiter, optionaler Port fuer den MCP-Server ueber HTTP. "null" heisst: standardmaessig
+# NICHT veroeffentlicht; in Home Assistant unter "Add-on -> Konfiguration -> Netzwerk"
+# freigebbar. Er tut nur etwas, wenn das Feld "mcp_mode" auf "port" steht; sonst lauscht
+# dahinter niemand. Der Container-Port muss zu "mcp_port" passen (Vorgabe 8001) -- ein
+# anderer Wert dort braucht auch eine andere Port-Zuordnung unter "Netzwerk". Auch hier
+# gilt: unverschluesseltes HTTP, TLS beendet ein Proxy davor. Ingress ersetzt ihn nicht --
+# externe MCP-Clients kommen dort nicht durch.
 ports:
   8000/tcp: 8000
+  8001/tcp: null
 ports_description:
   8000/tcp: Direkter Zugang, etwa fuer einen Reverse Proxy -- geht an Ingress vorbei
+  8001/tcp: Optional, MCP-Server ueber HTTP (nur mit mcp_mode "port"; muss zu mcp_port passen)
 
 ingress: true
 # Der Port, auf dem thermoctl im Container lauscht (Settings.bind_port, Vorgabe 8000).
@@ -87,6 +97,8 @@ options:
   mqtt_client_id: thermoctl
   mqtt_base_topic: zigbee2mqtt
   mqtt_prefix: thermoctl
+  mcp_mode: "off"
+  mcp_port: 8001
 
 schema:
   # THERMOCTL_SECRET_KEY -- ohne ihn startet die Anwendung nicht (Settings.secret_key,
@@ -128,10 +140,27 @@ schema:
   notify_webhook: "url?"
   notify_webhook_token: "password?"
 
-  # THERMOCTL_MCP_TOKEN. Ein gewöhnliches API-Token für den MCP-Server. Es allein
-  # startet keinen -- der läuft als eigener Einstiegspunkt (docs/mcp.md im
-  # Anwendungsprojekt), nicht in diesem Container.
+  # THERMOCTL_MCP_TOKEN. Ein gewöhnliches API-Token für den MCP-Server im stdio-Betrieb
+  # (docs/mcp.md im Anwendungsprojekt). Es allein startet keinen; der stdio-Server läuft
+  # ausserhalb dieses Containers. Der HTTP-Betrieb im Add-on wird ueber "mcp_mode"
+  # eingeschaltet (siehe DOCS.md), nicht ueber dieses Token.
   mcp_token: "password?"
+
+  # THERMOCTL_MCP_MODE, _MCP_PATH, _MCP_PORT, _PUBLIC_URL, _MCP_PUBLIC_URL: der
+  # MCP-Server ueber HTTP. "off" ist die Vorgabe; dann aendert sich nichts und die
+  # uebrigen vier Felder bleiben ohne Wirkung. "path" haengt den Endpunkt unter einem
+  # Pfad (mcp_path, Vorgabe /mcp) an die Weboberflaeche und braucht public_url; "port"
+  # startet einen zweiten Prozess auf mcp_port und braucht public_url, mcp_public_url
+  # und den veroeffentlichten Port 8001 (siehe "ports"). Alle Adressen sind die
+  # OEFFENTLICHEN, mit https -- ausser localhost; nicht die Ingress-Adresse. Eine
+  # unvollstaendige Angabe verhindert den Start mit einer Meldung, die das Feld nennt.
+  # Die Felder sind flach und optional ("?"), damit sie beim Speichern nicht fehlen
+  # koennen; die Pflichtregeln prueft die Anwendung selbst.
+  mcp_mode: "list(off|path|port)"
+  mcp_path: "str?"
+  mcp_port: "port?"
+  public_url: "url?"
+  mcp_public_url: "url?"
 
   # THERMOCTL_PASSKEY_*. Die häufigste Fehlerquelle zuerst: Die Relying-Party-Id ist der
   # Hostname, unter dem **Home Assistant** erreichbar ist -- nicht der von thermoctl.

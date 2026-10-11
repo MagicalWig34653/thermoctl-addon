@@ -9,6 +9,36 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.14.1
+
+- Zeigt jetzt auf `thermoctl:0.14.1`. (Eine Add-on-Version 0.14.0 gab es nicht; dieser
+  Abschnitt enthält alles, was seit 0.13.0 neu ist.)
+- **Beim Upgrade zu wissen:**
+  - Es laufen **zwei Datenbankmigrationen**, beim Start von selbst: Sie legen das neue Recht
+    `control.disarm` an und vergeben es an alle Gruppen und Token mit anlagenweitem
+    `control.arm`; außerdem entstehen die OAuth-Tabellen. Vor dem Upgrade eine Sicherung der
+    Datenbank anzulegen ist wie immer sinnvoll. Ein Downgrade unter die zweite Migration
+    löscht alle OAuth-Token.
+  - **Verhaltenswechsel:** Das MCP-Werkzeug `force_dry_run` verlangt jetzt `control.disarm`
+    statt `control.arm`.
+  - **Neue Felder** `mcp_mode`, `mcp_path`, `mcp_port`, `public_url` und `mcp_public_url`
+    für den MCP-Server über HTTP. Alle sind optional, `mcp_mode` steht auf `off`; ohne
+    Zutun ändert sich nichts.
+  - Neuer **optionaler Port 8001**, standardmäßig nicht veröffentlicht. Er tut nur etwas
+    bei `mcp_mode` `port`, und der Container-Port muss zu `mcp_port` passen. Ingress reicht
+    für externe MCP-Clients nicht; siehe „MCP-Server über HTTP“ in der DOCS.md.
+- Neu in der Anwendung:
+  - **MCP über HTTP** in zwei Betriebsarten (`path` unter der Weboberfläche oder `port` auf
+    eigenem Port); das stdio-Verfahren bleibt unverändert.
+  - **Anmeldung per Bearer-Token oder per OAuth** mit Zustimmungsseite; Zugriffs-Token gelten
+    1 Stunde, Refresh-Token 30 Tage. OAuth-Token gelten nur am MCP-Endpunkt.
+  - **Rechte-Vorauswahl „Read-only“ und „Read-write“** im Token-Formular und auf der
+    Zustimmungsseite; neues Recht `control.disarm` (zurück in den Trockenlauf).
+  - Die **Tokenliste zeigt Quelle und Client**; OAuth-Token lassen sich dort widerrufen.
+  - Ablehnungsgründe stehen im Werkzeug-Ergebnis, Aufrufe und OAuth-Vorgänge im Log.
+  - Schutz der offenen Endpunkte: begrenzte Registrierung (20 je Stunde und Quelladresse),
+    tägliches Aufräumen, nicht einbettbare Zustimmungsseite.
+
 ## 0.13.0
 
 - Zeigt jetzt auf `thermoctl:0.13.0`.

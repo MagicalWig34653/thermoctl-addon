@@ -119,12 +119,62 @@ werden einmal auf `manual` mit Notsollwert gestellt. Einstellbar unter „Regelv
 (anlagenweit) und „Zonen → Regelparameter“ (je Zone, dort auch abschaltbar). Meldungen
 laufen über den Störungs-Webhook, abschaltbar mit `notify_sensor_faults`.
 
+### MCP-Server über HTTP
+
+Optional, standardmäßig **aus** (`mcp_mode` steht auf `off`) — ohne Einstellung ändert
+sich nichts. Werkzeuge und Rechte sind dieselben wie im stdio-Betrieb; die Anmeldung
+erfolgt per Bearer-Token (unter `/tokens`) oder per OAuth. Die Felder:
+
+| Feld | Bedeutung |
+|---|---|
+| `mcp_mode` | `off` (Vorgabe), `path` oder `port` |
+| `mcp_path` | nur `path`: Pfad des Endpunkts unter der Weboberfläche; leer heißt `/mcp` |
+| `mcp_port` | nur `port`: Port des zweiten Prozesses; Vorgabe `8001` |
+| `public_url` | öffentliche Adresse der Weboberfläche, Pflicht bei `path` und `port` |
+| `mcp_public_url` | öffentliche Adresse des MCP-Ports, Pflicht bei `port`; bei `path` optional |
+
+**Wichtig: Ingress taugt dafür nicht.** Ingress verlangt eine Home-Assistant-Anmeldung, die
+ein externer MCP-Client nicht leisten kann. Der Zugang geht über die direkt
+veröffentlichten Ports, mit einem eigenen Reverse Proxy, der TLS beendet. Die
+eingetragenen Adressen müssen die **öffentlichen** (`https`) sein, unter denen der Proxy
+antwortet; `http` ist nur für `localhost` zulässig. Der Proxy muss den `Host`-Header
+unverändert weitergeben und die Pfade unter `/.well-known/` durchlassen.
+
+**Betriebsart `path`:** MCP liegt unter einem Pfad der Weboberfläche und nutzt den
+vorhandenen Port 8000. Eintragen:
+
+- `mcp_mode`: `path`
+- `public_url`: `https://<adresse-unter-der-die-weboberfläche-öffentlich-erreichbar-ist>`
+- `mcp_path`: nur nötig, wenn nicht `/mcp` gelten soll, z. B. `/<eigener-pfad>`
+
+Der MCP-Endpunkt ist dann `<public_url><mcp_path>`.
+
+**Betriebsart `port`:** MCP läuft als zweiter Prozess auf eigenem Port. Eintragen:
+
+- `mcp_mode`: `port`
+- `mcp_port`: `8001`
+- `public_url`: `https://<adresse-unter-der-die-weboberfläche-öffentlich-erreichbar-ist>`
+- `mcp_public_url`: `https://<öffentliche-adresse-des-mcp-ports>`
+
+Zusätzlich den Port `8001` unter „Add-on → Konfiguration → Netzwerk“ freigeben; er ist
+standardmäßig nicht veröffentlicht. **Der Container-Port dort muss zu `mcp_port`
+passen:** Wer einen anderen Wert in `mcp_port` einträgt, braucht auch eine andere
+Port-Zuordnung, sonst erreicht niemand den Dienst. Die Zustimmungsseite von OAuth bleibt
+in der Weboberfläche (`public_url`).
+
+Eine unvollständige oder unzulässige Angabe verhindert den Start des Add-ons mit einer
+Meldung im Protokoll, die das betroffene Feld nennt. Die Einstellungen im Einzelnen:
+`docs/mcp.md` und `docs/self-hosting.md` (Abschnitt 8c) im
+[Anwendungsprojekt](https://github.com/MagicalWig34653/thermoctl).
+
 ## Grenzen dieser Fassung
 
 - Passkeys/WebAuthn lassen sich über `passkey_rp_id`, `passkey_rp_name` und
   `passkey_origin` einstellen; hinter Ingress ist der Hostname von Home Assistant
   maßgeblich, weil der Browser dessen Adresse sieht.
-- Der MCP-Server läuft nicht als Teil dieses Add-ons.
+- Der MCP-Server im **stdio**-Betrieb läuft nicht als Teil dieses Add-ons, sondern
+  außerhalb (dafür das Feld `mcp_token`). Der **HTTP**-Betrieb ist im Add-on möglich,
+  siehe „MCP-Server über HTTP“.
 
 ## Support
 
