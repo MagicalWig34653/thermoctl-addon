@@ -9,6 +9,29 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.15.0
+
+- Zeigt jetzt auf `thermoctl:0.15.0`.
+- **Beim Upgrade zu wissen:**
+  - Es läuft **eine Datenbankmigration**, beim Start von selbst: Sie legt zwei neue Tabellen
+    an (`change_log`, `change_log_field`). Vor dem Upgrade eine Sicherung der Datenbank
+    anzulegen ist wie immer sinnvoll.
+  - Keine neuen Felder, keine neuen Optionen; `mcp_mode` bleibt auf `off`.
+  - Die Protokollierung beginnt ab diesem Start; ältere Änderungen stehen nicht im
+    Änderungsprotokoll.
+- Neu in der Anwendung:
+  - **MCP-Werkzeug `temperature_history`:** Temperaturverlauf einer Zone in Zeitfächern samt
+    Zusammenfassung; das Schaltprotokoll der Zone gehört nur dazu, wenn das Token
+    `audit.read` hat.
+  - **Änderungsprotokoll mit Zurückrollen:** schreibende MCP-Werkzeuge protokollieren, wer
+    (Nutzer und Token) was wann von wo nach wo geändert hat. Neue Werkzeuge `list_changes`
+    und `revert_change`, dazu die Seite „Änderungsprotokoll“ unter Analyse mit Rücknahme nach
+    Bestätigung. Ein Konflikt wird abgewiesen und lässt sich ausdrücklich erzwingen;
+    `force_dry_run`, `cancel_override` und `cancel_vacation` sind nicht zurücknehmbar. Die
+    Rücknahme verlangt die Rechte der Änderung, das Lesen `audit.read`. Einträge werden
+    365 Tage aufbewahrt.
+- Korrigiert: `set_control_parameters` schrieb die Token-Kennung nicht ins Audit-Log.
+
 ## 0.14.2
 
 - Zeigt jetzt auf `thermoctl:0.14.2`.
