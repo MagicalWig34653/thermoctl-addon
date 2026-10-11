@@ -9,6 +9,24 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.13.0
+
+- Zeigt jetzt auf `thermoctl:0.13.0`.
+- Beim Upgrade nichts zu tun: keine Migration, keine neue Einstellung, keine neuen Optionen.
+- Neu in der Anwendung:
+  - **Werte am Mauszeiger** im Temperaturverlauf einer Zone (Maus, Touch, Pfeiltasten): Uhrzeit,
+    Messwert, Sollwert vor der Sonnenabsenkung, wirksamer Sollwert, Sonnenabsenkung und
+    Heizanforderung an dieser Stelle. In Lücken steht „keine Daten“, nichts wird interpoliert.
+  - **Verläufe aller Zonen** (Analyse → Zonenverläufe, auch „Alle Verläufe“ auf der Zonenliste):
+    ein Diagramm je Zone auf einer Seite. Man sieht nur Zonen, die man verwalten darf.
+  - **Verlauf in der Wohnungssicht:** Bewohner sehen den Temperaturverlauf ihrer **eigenen**
+    Räume in Alltagssprache. Ist die Anlage noch nicht scharf gestellt, steht dort derselbe
+    Hinweis wie bei der Heizzeit.
+- Korrigiert: Die Beschriftung „Zeitplan-Soll“ im Verlauf und im Schaltprotokoll heißt jetzt
+  „Sollwert vor Sonnenabsenkung“ bzw. „Sollwert vor Absenkung“, weil der Wert auch einer
+  Übersteuerung, dem Urlaub und der Betriebsart Aus folgt. Die Protokolltexte entstehen beim
+  Lesen und gelten deshalb auch für ältere Einträge.
+
 ## 0.12.0
 
 - Zeigt jetzt auf `thermoctl:0.12.0`.
