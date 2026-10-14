@@ -9,6 +9,29 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.16.0
+
+- Zeigt jetzt auf `thermoctl:0.16.0`.
+- **Beim Upgrade zu wissen:**
+  - Es läuft **eine Datenbankmigration**, beim Start von selbst (`d8e3a51c7f24`): Sie ersetzt
+    „Ventil regelt selbst“ (Ja/Nein) je Thermostatventil durch eine Betriebsart. Bestehende
+    Zuordnungen bleiben, was sie waren (Nein wird „thermoctl schaltet“, Ja wird „Ventil regelt
+    selbst“). Vor dem Upgrade eine Sicherung der Datenbank anzulegen ist wie immer sinnvoll.
+  - **Rückwärts verlustbehaftet:** Ein Downgrade macht „nur Istwert“ zu „Ventil regelt selbst“;
+    thermoctl schreibt solchen Ventilen danach wieder einen Sollwert.
+  - Keine neuen Felder, keine neuen Optionen; `mcp_mode` bleibt auf `off`.
+- Neu in der Anwendung:
+  - **Drei Betriebsarten je Thermostatventil** (Seite „Geräte“ der Zone): „thermoctl schaltet“
+    (wie bisher), „Ventil regelt selbst“ (Soll- und Istwert, wie bisher) und neu **„nur
+    Istwert“**: thermoctl schreibt dann ausschließlich die gemessene Raumtemperatur an das
+    Ventil, nie einen Sollwert und kein Ein/Aus -- auch nicht bei offenem Fenster, als
+    Frostschutz oder bei der Übergabe im Notbetrieb. Zeitplan, Übersteuerung und Boost wirken
+    auf ein solches Ventil nicht. Jede Umstellung steht im Audit-Log; beim Gerätetausch gilt
+    für die neue Zuordnung wieder „thermoctl schaltet“.
+  - **Seite „Datenfluss“** (Analyse): ein Flussdiagramm je Zone, welcher Wert von welchem
+    Gerät kommt und wohin er geschrieben würde. Ändert nichts an der Anlage; die Zeichnung
+    wird ohne externe Anfragen im Browser erzeugt.
+
 ## 0.15.0
 
 - Zeigt jetzt auf `thermoctl:0.15.0`.
