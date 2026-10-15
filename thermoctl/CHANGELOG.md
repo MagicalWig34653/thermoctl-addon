@@ -9,6 +9,18 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.17.1
+
+- Zeigt jetzt auf `thermoctl:0.17.1`.
+- **Beim Upgrade zu wissen:** Keine Datenbankmigration, keine neuen Felder oder Optionen. Es
+  ändert sich nur die Zuordnungskarte; die Regelung verhält sich unverändert.
+- Neu in der Anwendung:
+  - **Zuordnungskarte, Thermostatventile:** Die Betriebsart folgt aus den gezogenen Linien
+    („thermoctl schaltet“, „Ventil regelt selbst“, „Nur Raumtemperatur melden“). Die Zone hat
+    dafür die Ausgänge „Heizbefehl“, „Sollwert“ und „Raumtemperatur“. Die Karte zeichnet nur
+    Linien, die die Regelung wirklich ausführt, und weist beim Zurückstufen darauf hin, dass der
+    Sollwert am Gerät stehen bleibt.
+
 ## 0.17.0
 
 - Zeigt jetzt auf `thermoctl:0.17.0`.
