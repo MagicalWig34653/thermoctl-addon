@@ -9,6 +9,25 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.17.0
+
+- Zeigt jetzt auf `thermoctl:0.17.0`.
+- **Beim Upgrade zu wissen:**
+  - **Keine Datenbankmigration**, keine neuen Felder, keine neuen Optionen.
+  - **Ein Gerät kann nur noch Aktor einer Zone sein** (eine Zone darf mehrere haben). Die Regel
+    gilt für neue Zuordnungen; ein Ventil, das schon zwei Zonen dient, bleibt unverändert und
+    lässt sich weiter bearbeiten und lösen.
+  - Wer eine Seite ohne Anmeldung öffnet (zum Beispiel über ein Lesezeichen oder nach
+    abgelaufener Sitzung), landet jetzt auf der Anmeldung und danach auf der gewünschten Seite.
+  - Ein in der Karte oder auf der Zuordnungsseite gelöster Aktor bekommt keinen Ausschaltbefehl
+    und behält seinen letzten Zustand (wie bisher).
+- Neu in der Anwendung:
+  - **Seite „Zuordnungskarte“** (`/devices/map`, Navigation „System“): Geräte und Zonen als
+    frei verschiebbare Knoten; per Linie von Ausgang zu Eingang werden Temperatur,
+    Fensterkontakt und Heizbefehl zugeordnet, mit Begründung bei Unpassendem. Linien lassen
+    sich entfernen; ein Fühler oder Kontakt darf mehreren Zonen dienen.
+  - **Anmeldung führt zur Zielseite zurück**, auch mit Passkey.
+
 ## 0.16.0
 
 - Zeigt jetzt auf `thermoctl:0.16.0`.
