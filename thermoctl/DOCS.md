@@ -56,7 +56,7 @@ Administratoren — ohne thermoctl-Konto kommt aber niemand über die Anmeldesei
 Es gibt eine gemeinsame Oberfläche; Bereiche und Aktionen folgen den Rechten der
 Person. Das Gruppenfeld „UI-Profil“ (Anlage oder Wohnung) gibt es weiterhin: Eine Person
 gilt als Mieter, wenn sie mindestens einer Gruppe angehört und alle ihre Gruppen das
-Wohnungsprofil haben; das Profil schaltet einzelne Verwaltungsaktionen (z. B. Urlaub, Modi, Raumvorgaben) nur für die Anlagensicht frei. Was jemand
+Wohnungsprofil haben; das Profil trennt weiterhin die Verwaltungsbereiche (Geräte, Betrieb und Einstellungen, Personen und Gruppen, Berichte, Urlaub, Modi) vom Wohnbereich: Ein Konto mit Wohnungsprofil sieht sie auch mit passendem Recht nicht. Was jemand
 darf, bestimmen weiterhin die Rechte. Beim Upgrade behalten alle bestehenden Gruppen das
 Anlagenprofil, auch eine Gruppe namens „Mieter“. Für eine Mietergruppe setzen Sie das
 UI-Profil in der Gruppenverwaltung von thermoctl ausdrücklich auf Wohnung. Das Recht
