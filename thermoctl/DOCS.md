@@ -7,23 +7,24 @@ unter <https://github.com/MagicalWig34653/thermoctl>.
 
 ## So sieht es aus
 
-Zwei Oberflächen, je nach Gruppe: die **Anlagensicht** für Verwaltung und Technik —
+Eine gemeinsame Oberfläche für Bewohner und Verwaltung: Welche Bereiche und Aktionen
+sichtbar sind, folgt den Rechten der Person. Die Übersicht am Rechner, mit Navigation links —
 
-![Startseite der Anlagensicht mit mehreren Zonen, je mit Ist-Wert, Sollwert samt Begründung und Zeitplan-Band](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/anlage-startseite.png)
+![Übersicht der neuen Oberfläche am Rechner mit Navigation links, Statuskarten, Kennzahlen und Anlagenstatus](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/anlage-startseite.png)
 
-— und die **Wohnungssicht** für die Bewohner eines Raums, hier auf dem Telefon:
+— und dieselbe Übersicht auf dem Telefon:
 
-![Wohnungssicht auf dem Handy mit den eigenen Räumen, Temperatur, Sollwert und Knöpfen für vorübergehende Änderungen](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/wohnung-startseite-mobil.png)
+![Übersicht auf dem Handy mit Hinweis zum Notbetrieb und Kennzahlen zu Räumen, Heizanforderung und Auffälligkeiten](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/wohnung-startseite-mobil.png)
 
-Dazu ein Kiosk-Dashboard für ein Wandtablet, hinter einem eigenen, widerrufbaren Token:
+Dazu eine Kioskansicht für ein Wandtablet, hinter einem eigenen, widerrufbaren Token:
 
-![Kiosk-Dashboard mit mehreren Zonen nebeneinander, je mit Ist-Temperatur und Sollwert-Reglern](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/kiosk-dashboard.png)
+![Kioskansicht mit Raumkacheln, je mit Ist-Temperatur, Sollwert und Plus-/Minus-Tasten sowie Umschaltern für Ansicht](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/kiosk-dashboard.png)
 
 Für kleine Wandtablets (480×480, z. B. Sonoff NSPanel Pro Gen2) gibt es zusätzlich eine
 kompakte Panel-Ansicht: alle Zonen als Raster, ein Antippen öffnet die Zone im Detail.
 Umschaltbar über `?ansicht=panel`, `?ansicht=tafel` oder `?ansicht=auto` (Vorgabe).
 
-Eine ausführliche Bedienungsanleitung mit weiteren Bildern für beide Oberflächen steht
+Eine ausführliche Bedienungsanleitung mit weiteren Bildern steht
 in [`docs/bedienung.md`](https://github.com/MagicalWig34653/thermoctl/blob/main/docs/bedienung.md)
 des Hauptrepositories.
 
@@ -50,17 +51,17 @@ Das erste Konto legen Sie beim ersten Öffnen der Oberfläche an. Der Eintrag in
 Seitenleiste erscheint seit 0.9.5 jedem Home-Assistant-Nutzer, nicht nur
 Administratoren — ohne thermoctl-Konto kommt aber niemand über die Anmeldeseite hinaus.
 
-![Anmeldeseite von thermoctl mit den Feldern Benutzername und Passwort](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/oeffentlich-anmeldung.png)
+![Anmeldeseite von thermoctl mit den Feldern Benutzername und Passwort und der Schaltfläche Anmelden](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/oeffentlich-anmeldung.png)
 
-Ab 0.9.0 gibt es zwei Oberflächen: Anlage und Wohnung. Welche jemand bekommt,
-bestimmen die UI-Profile seiner Gruppen; die Wohnungssicht erscheint nur, wenn er
-mindestens einer Gruppe angehört und alle seine Gruppen das Wohnungsprofil haben.
-Was er darin darf, bestimmen weiterhin die Rechte. Beim Upgrade behalten alle
-bestehenden Gruppen die Anlagenoberfläche, auch
-eine Gruppe namens „Mieter“. Für eine Mietergruppe setzen Sie das UI-Profil in der
-Gruppenverwaltung von thermoctl ausdrücklich auf Wohnung. Das Recht `report.create`
-für Problemmeldungen müssen Sie ebenfalls ausdrücklich vergeben — keine bestehende
-Gruppe erhält es beim Upgrade automatisch.
+Es gibt eine gemeinsame Oberfläche; Bereiche und Aktionen folgen den Rechten der
+Person. Das Gruppenfeld „UI-Profil“ (Anlage oder Wohnung) gibt es weiterhin: Eine Person
+gilt als Mieter, wenn sie mindestens einer Gruppe angehört und alle ihre Gruppen das
+Wohnungsprofil haben; das Profil schaltet einzelne Verwaltungsaktionen (z. B. Urlaub, Modi, Raumvorgaben) nur für die Anlagensicht frei. Was jemand
+darf, bestimmen weiterhin die Rechte. Beim Upgrade behalten alle bestehenden Gruppen das
+Anlagenprofil, auch eine Gruppe namens „Mieter“. Für eine Mietergruppe setzen Sie das
+UI-Profil in der Gruppenverwaltung von thermoctl ausdrücklich auf Wohnung. Das Recht
+`report.create` für Problemmeldungen müssen Sie ebenfalls ausdrücklich vergeben — keine
+bestehende Gruppe erhält es beim Upgrade automatisch.
 
 ## Installation
 

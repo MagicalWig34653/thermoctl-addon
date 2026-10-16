@@ -9,6 +9,35 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.18.0
+
+- Zeigt jetzt auf `thermoctl:0.18.0`.
+- **Beim Upgrade zu wissen:**
+  - **Eine Datenbankmigration** (Dashboard-Layouts je Benutzer). Sie läuft beim Start von
+    selbst; ein Eingriff ist nicht nötig.
+  - **Keine neuen Add-on-Optionen.** `config.yaml` und Schema bleiben unverändert.
+  - **Die komplette Weboberfläche wurde ersetzt.** Es gibt nur noch eine gemeinsame
+    Oberfläche; was sichtbar ist, folgt den Rechten der Person. Alte Lesezeichen leiten
+    weiter (alle früheren GET-Pfade führen auf `/app`), alte Formular-POSTs gibt es nicht mehr.
+  - **Der Kiosk-Link `/kiosk/{token}` bleibt gültig** und führt auf die neue Kioskansicht.
+    Die braucht JavaScript; die alte Kioskseite lief auch ohne.
+  - **Ingress bleibt nutzbar** (Asset-Pfade relativ, der Präfix wird zur Laufzeit eingesetzt).
+  - **Noch nicht an der echten Anlage und unter Home-Assistant-Ingress erprobt** (auch
+    Passkey-Anmeldung mit echtem Authenticator und Touchgeräte). Bitte nach dem Update einmal
+    Anmeldung, Übersicht, Wochenplan und Kiosk durchgehen.
+  - **Teilweise noch offen:** einen Schaltpunkt ohne Zeiger oder Touch neu anlegen (per Tastatur
+    nur verschieben und kürzen) sowie drei Anzeigefelder der Notbetrieb-Aktortabelle. Die
+    offenen Entscheidungen des Projektinhabers stehen im Hauptrepository in `docs/STATUS.md`.
+  - Mieter-Konten können Wochenplan-Zeiten ihrer Räume bearbeiten, weil allein das Recht
+    `schedule.manage` je Raum entscheidet, nicht mehr das Oberflächenprofil.
+- Neu in der Anwendung:
+  - **Neue Weboberfläche (Svelte 5)** mit gemeinsamer Shell, sieben Menübereichen und
+    Einstellungssuche, persönlichem Dashboard, Wochenplan-Editor (Ziehen, Rückgängig),
+    Verlauf mit Zoom und CSV-Export, Gerätekarte und Anlagenbild, eigener Kioskansicht,
+    Akzentfarben und Hell/Dunkel sowie Passkey-Anmeldung.
+  - Die alte Jinja/HTMX/Bootstrap-Oberfläche ist entfernt; REST-API, MCP und MQTT sind
+    unverändert.
+
 ## 0.17.1
 
 - Zeigt jetzt auf `thermoctl:0.17.1`.
