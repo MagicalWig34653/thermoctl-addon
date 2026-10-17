@@ -9,6 +9,18 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.19.1
+
+- Zeigt jetzt auf `thermoctl:0.19.1`.
+- **Beim Upgrade zu wissen:**
+  - **Keine Migration**, keine neuen Add-on-Optionen. `config.yaml` und Schema bleiben unverändert.
+  - **Neue Begriffe in der Oberfläche:** „Primärrolle“ statt „Führung“ und „Standby“ statt „Reserve“ für die Rolle einer
+    Instanz im Aktiv-Bereitschafts-Verbund. Die Schnittstelle bleibt unverändert; die Einstellungssuche findet die Seite
+    auch unter den alten Begriffen.
+  - **Der Glow ist kräftiger und hat drei Stufen** (Dezent, Kräftig, Intensiv); die Stufe wählt man im
+    Darstellungsdialog.
+  - Praxistest an der echten Anlage und unter Home-Assistant-Ingress steht weiter aus (siehe 0.18.0).
+
 ## 0.19.0
 
 - Zeigt jetzt auf `thermoctl:0.19.0`.
