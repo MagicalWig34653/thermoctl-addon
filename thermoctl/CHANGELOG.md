@@ -9,6 +9,19 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.20.1
+
+- Zeigt jetzt auf `thermoctl:0.20.1`.
+- **Beim Upgrade zu wissen:**
+  - **Keine Migration**, keine neuen Add-on-Optionen. `config.yaml` und Schema bleiben unverändert.
+  - **Glow hat sechs Stufen** (Schieberegler im Darstellungsdialog, 0 ist aus) und leuchtet feiner; wer ihn vorher
+    gewählt hatte, bekommt „Mittel“.
+  - **Einheitliches Symbol:** Das Zifferblatt des Add-ons ist jetzt auch das Symbol der Anwendung, der iOS-Web-App,
+    der Anmeldung und des Browser-Tabs. Wer die Web-App schon mit dem alten Symbol angelegt hat, entfernt sie einmal und
+    fügt sie neu hinzu.
+  - Außerdem: Raum bedienen auf schmalen Kacheln (Handy) behoben, Verlaufsüberschriften nur noch mit dem Raumnamen.
+  - Praxistest an der echten Anlage und unter Home-Assistant-Ingress steht weiter aus (siehe 0.18.0).
+
 ## 0.20.0
 
 - Zeigt jetzt auf `thermoctl:0.20.0`.
