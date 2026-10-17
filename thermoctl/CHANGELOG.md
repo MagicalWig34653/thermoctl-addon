@@ -9,6 +9,23 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.19.0
+
+- Zeigt jetzt auf `thermoctl:0.19.0`.
+- **Beim Upgrade zu wissen:**
+  - **Eine Datenbankmigration** (Anordnung der Gerätekarte, Tabellen `map_layout*`). Sie läuft beim Start von
+    selbst; ein Eingriff ist nicht nötig.
+  - **Keine neuen Add-on-Optionen.** `config.yaml` und Schema bleiben unverändert.
+  - **Die Anordnung der Gerätekarte liegt jetzt auf dem Server**, je Benutzer. Ein Administrator mit dem
+    anlagenweiten Recht `device.manage` kann sie als Vorgabe für alle hinterlegen. Eine bisher nur im Browser
+    gespeicherte Anordnung wird als Rückfall gelesen, aber nicht automatisch hochgeladen.
+  - **Nach einem Start zeigt die Anlage „Führung wird ermittelt“ statt „Reserve“**, solange der Anspruch einer
+    abgestürzten Vorgängerinstanz noch gültig ist (Standard fünf Minuten). In dieser Zeit schaltet die Instanz nichts,
+    genau wie als Reserve; an der Schaltlogik hat sich nichts geändert.
+  - Praxistest an der echten Anlage und unter Home-Assistant-Ingress steht weiter aus (siehe 0.18.0).
+- Neu in der Anwendung: aufklappbare Navigation, Glow-Schalter im Darstellungsdialog, schnellere Seiten (Seiten werden
+  erst beim Aufruf geladen, Dateien lange gecacht und komprimiert), Anordnung der Gerätekarte auf dem Server.
+
 ## 0.18.0
 
 - Zeigt jetzt auf `thermoctl:0.18.0`.
