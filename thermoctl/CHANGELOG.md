@@ -9,6 +9,19 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.20.0
+
+- Zeigt jetzt auf `thermoctl:0.20.0`.
+- **Beim Upgrade zu wissen:**
+  - **Zwei Datenbankmigrationen** (neue Kachelart „Raum bedienen“, Tabellen für Übersichtsvorlagen). Sie laufen beim Start
+    von selbst. `config.yaml` und Schema der Add-on-Optionen bleiben unverändert.
+  - **Neu in der Anwendung:** Kachel „Raum bedienen“ auf der Übersicht, Vorlagen für die Übersicht neuer Personen und
+    die Möglichkeit, die Übersicht beliebiger Personen zu bearbeiten (Personen & Rechte, Reiter „Übersichten“; Recht
+    `user.manage`), 20 statt 6 Akzentfarben, sichtbarerer Glow.
+  - **iOS:** Das Symbol der Web-App fehlte. Wer thermoctl schon ohne Symbol zum Home-Bildschirm hinzugefügt hat, entfernt
+    die Web-App einmal und fügt sie neu hinzu.
+  - Praxistest an der echten Anlage und unter Home-Assistant-Ingress steht weiter aus (siehe 0.18.0).
+
 ## 0.19.1
 
 - Zeigt jetzt auf `thermoctl:0.19.1`.
