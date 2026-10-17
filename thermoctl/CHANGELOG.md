@@ -9,6 +9,18 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.20.2
+
+- Zeigt jetzt auf `thermoctl:0.20.2`.
+- **Beim Upgrade zu wissen:**
+  - **Keine Migration**, keine neuen Add-on-Optionen. `config.yaml` und Schema bleiben unverändert.
+  - **Räume anlegen geht wieder über das Menü:** „Übersicht“ ist eine Gruppe mit „Übersicht“ und „Räume“. Seit 0.19.0
+    war die Seite nur noch erreichbar, solange es noch keinen Raum gab.
+  - **Seiten laden nach einem gescheiterten Nachladen von selbst neu** (einmal wiederholt, dann einmal neu geladen).
+    Der Fehler „lädt erst beim zweiten Mal“ ließ sich nicht nachstellen; ob diese Abhilfe ihn an der Anlage beseitigt,
+    ist offen.
+  - Praxistest an der echten Anlage und unter Home-Assistant-Ingress steht weiter aus (siehe 0.18.0).
+
 ## 0.20.1
 
 - Zeigt jetzt auf `thermoctl:0.20.1`.
