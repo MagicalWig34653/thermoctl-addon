@@ -53,11 +53,11 @@ Administratoren — ohne thermoctl-Konto kommt aber niemand über die Anmeldesei
 
 ![Anmeldeseite von thermoctl mit den Feldern Benutzername und Passwort und der Schaltfläche Anmelden](https://raw.githubusercontent.com/MagicalWig34653/thermoctl/main/docs/bilder/oeffentlich-anmeldung.png)
 
-Es gibt eine gemeinsame Oberfläche; Bereiche und Aktionen folgen den Rechten der
-Person. Das Gruppenfeld „UI-Profil“ (Anlage oder Wohnung) gibt es weiterhin: Eine Person
-gilt als Mieter, wenn sie mindestens einer Gruppe angehört und alle ihre Gruppen das
-Wohnungsprofil haben; das Profil trennt weiterhin die Verwaltungsbereiche (Geräte, Betrieb und Einstellungen, Personen und Gruppen, Berichte, Urlaub, Modi) vom Wohnbereich: Ein Konto mit Wohnungsprofil sieht sie auch mit passendem Recht nicht. Was jemand
-darf, bestimmen weiterhin die Rechte. Beim Upgrade behalten alle bestehenden Gruppen das
+Es gibt eine gemeinsame Oberfläche; Bereiche und Aktionen folgen allein den Rechten der
+Person. Das Gruppenfeld „UI-Profil“ (Anlage oder Wohnung) gibt es weiterhin, es steuert aber
+seit 0.21.0 nur noch die Darstellung (Wortwahl, Wohnungsstart) und sperrt nichts: Ein Konto mit
+Wohnungsprofil sieht Geräte, Betrieb, Berichte und Verwaltung, sobald es das passende Recht
+hat. Wer das nicht will, entzieht das Recht. Beim Upgrade behalten alle bestehenden Gruppen das
 Anlagenprofil, auch eine Gruppe namens „Mieter“. Für eine Mietergruppe setzen Sie das
 UI-Profil in der Gruppenverwaltung von thermoctl ausdrücklich auf Wohnung. Das Recht
 `report.create` für Problemmeldungen müssen Sie ebenfalls ausdrücklich vergeben — keine

@@ -9,6 +9,16 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.21.0
+
+- Zeigt jetzt auf `thermoctl:0.21.0`.
+- **Beim Upgrade zu wissen:**
+  - **Zwei Datenbankmigrationen** beim ersten Start (Aufbewahrung des Schaltprotokolls, `audit.read` raumbezogen). Keine neuen Add-on-Optionen, `config.yaml` und Schema bleiben unverändert. Wer auf eine ältere Fassung zurückgeht, verliert dabei alle auf Räume beschränkten Vergaben von `audit.read`.
+  - **Das Gruppenprofil sperrt nichts mehr:** Sichtbarkeit und Zugriff folgen allein den Rechten. Ein Konto mit Wohnungsprofil sieht Geräte, Betrieb, Berichte und Verwaltung, sobald es das passende Recht hat. Prüfen Sie vor dem Upgrade, ob Mietergruppen solche Rechte tragen.
+  - **Das Schaltprotokoll hat eine Obergrenze:** höchstens 3 Jahre und etwa 2 GiB (Seite „Regelvorgaben“). Der erste Aufbewahrungslauf nach dem Upgrade kann bei einem großen Bestand länger dauern.
+  - **REST:** `PUT /control/defaults` verlangt zwei neue Felder (`command_log_retention_days`, `command_log_max_mb`).
+- **Neu in der Anwendung:** Vorschau der Oberfläche eines Kontos für Administratoren; `audit.read` lässt sich auf Räume beschränken; mehr Vorgänge im Audit (Token-Ausstellung, Bediengeräte, Einrichtung, Boost, Testmeldung); das letzte Konto mit `group.manage` ist geschützt; am eigenen Konto lässt sich nichts verwalten, und niemand vergibt mehr Rechte, als er selbst hat.
+
 ## 0.20.3
 
 - Zeigt jetzt auf `thermoctl:0.20.3`.
