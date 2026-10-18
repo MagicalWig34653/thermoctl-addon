@@ -9,6 +9,14 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.20.3
+
+- Zeigt jetzt auf `thermoctl:0.20.3`.
+- **Beim Upgrade zu wissen:**
+  - **Keine Migration**, keine neuen Add-on-Optionen. `config.yaml` und Schema bleiben unverändert.
+  - **Glow „Intensiv“:** Hinter dem Seitenkopf erschien ein Kasten; er ist weg.
+  - Praxistest an der echten Anlage und unter Home-Assistant-Ingress steht weiter aus (siehe 0.18.0).
+
 ## 0.20.2
 
 - Zeigt jetzt auf `thermoctl:0.20.2`.
