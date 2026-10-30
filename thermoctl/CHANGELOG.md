@@ -9,6 +9,12 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.21.1
+
+- Zeigt jetzt auf `thermoctl:0.21.1`.
+- **Beim Upgrade zu wissen:** keine Migration, keine neuen Add-on-Optionen, `config.yaml` und Schema bleiben unverändert. Die Sonnenabsenkung greift seltener: nur noch bei direkter Sonne, nicht mehr bei hellem diffusem Licht.
+- **Behoben in der Anwendung:** Die Sonnenabsenkung wurde bei dichtem Nebel ausgelöst und heizte unnötig wenig. Sie entscheidet jetzt nach der Direktstrahlung statt nach der Globalstrahlung.
+
 ## 0.21.0
 
 - Zeigt jetzt auf `thermoctl:0.21.0`.
