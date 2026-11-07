@@ -9,6 +9,16 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.22.0
+
+- Zeigt jetzt auf `thermoctl:0.22.0`.
+- **Beim Upgrade zu wissen:**
+  - **Eine Datenbankmigration** (`c7e2a4f91d38`) läuft beim ersten Start automatisch; bestehende Fühlerzuordnungen werden übernommen. Keine neuen Add-on-Optionen, `config.yaml` und Schema bleiben unverändert. **Die Rückwärtsmigration ist verlustbehaftet:** Wer auf eine ältere Fassung zurückgeht, behält je Zone nur den ersten Fühler.
+  - **REST:** `POST|PUT /api/v1/zones` nimmt `temperature_source_device_ids` (Liste) statt `temperature_source_device_id` an. Das alte Feld ergibt `422`; Skripte und Automationen, die es senden, müssen angepasst werden. Fehlt die Liste oder ist sie `null`, bleiben die Fühler unverändert.
+  - **Teilausfall löst keinen Notbetrieb aus:** Fällt ein Fühler aus, regelt der Raum mit den übrigen weiter; Notbetrieb erst ohne brauchbaren Fühler.
+  - Die neuen Anwendungseinstellungen (`THERMOCTL_DB_POOL_*`, `THERMOCTL_LOOP_MONITOR_ENABLED`) sind im Add-on nicht als Optionen herausgeführt: Der Datenbankpool wirkt nur bei MariaDB (Vorgaben passen), der Schleifenmesser ist standardmäßig an.
+- **Neu in der Anwendung:** Mehrere Temperaturfühler je Raum, die Raumtemperatur ist der Mittelwert der brauchbaren Fühler (Thermostate sind als Fühler nicht zugelassen; die Fenstererkennung per Temperatursturz bewertet jeden Fühler einzeln). Messbarkeit: Antwortzeiten im Log (`dauer_ms`), Warnung bei blockierter Ereignisschleife, Frontend-Timeout von 30 s. Behoben: Ein Zigbee2MQTT-Gerät mit überlangem Textwert führte bei MariaDB zu „Data too long“ und verwarf die ganze Nachricht.
+
 ## 0.21.1
 
 - Zeigt jetzt auf `thermoctl:0.21.1`.

@@ -114,8 +114,10 @@ Add-on-Protokoll, nicht nach außen.
 
 ### Notbetrieb bei Sensorausfall
 
-Seit 0.11.0 ist der Notbetrieb für jede Zone automatisch aktiv: Fällt der Raumfühler aus
-und gibt es keine brauchbare Ersatzquelle, takten Fußbodenkreise, und Heizkörper-Thermostate
+Seit 0.11.0 ist der Notbetrieb für jede Zone automatisch aktiv: Ein Raum kann seit 0.22.0
+mehrere Temperaturfühler haben; die Raumtemperatur ist der Mittelwert der brauchbaren Fühler.
+Fällt nur ein Fühler aus, regelt der Raum mit den übrigen weiter, ohne Notbetrieb. Fällt
+dagegen der letzte brauchbare Fühler aus und gibt es keine brauchbare Ersatzquelle, takten Fußbodenkreise, und Heizkörper-Thermostate
 werden einmal auf `manual` mit Notsollwert gestellt. Einstellbar unter „Regelvorgaben“
 (anlagenweit) und „Zonen → Regelparameter“ (je Zone, dort auch abschaltbar). Meldungen
 laufen über den Störungs-Webhook, abschaltbar mit `notify_sensor_faults`.
