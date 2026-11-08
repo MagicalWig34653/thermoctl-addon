@@ -9,6 +9,13 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.22.1
+
+- Zeigt jetzt auf `thermoctl:0.22.1`.
+- **Beim Upgrade zu wissen:**
+  - **Eine Datenbankmigration** (`d4a8e1b73c52`) läuft beim ersten Start automatisch: zwei neue Indizes auf `shadow_decision`. Bei großer Historie (Hunderttausende Zeilen je Zone) kann das Anlegen einige Sekunden bis Minuten dauern; der Dienst startet danach normal. Rückwärts werden die Indizes wieder entfernt. Keine neuen Add-on-Optionen, `config.yaml` und Schema bleiben unverändert.
+- **Behoben in der Anwendung:** Die Oberfläche war zeitweise sehr zäh (Aufrufe von 10 bis 14 s). Ursache war der Regelzyklus, der je Zone die gesamte Entscheidungshistorie las und dabei alle Anfragen blockierte; sie wächst täglich. Jetzt genügen wenige Indexzugriffe. Die Raumübersicht lädt außerdem deutlich weniger Abfragen und aggregiert in der Datenbank.
+
 ## 0.22.0
 
 - Zeigt jetzt auf `thermoctl:0.22.0`.
