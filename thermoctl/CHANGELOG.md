@@ -9,6 +9,14 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.23.0
+
+- Zeigt jetzt auf `thermoctl:0.23.0`.
+- **Beim Upgrade zu wissen:**
+  - **Eine Datenbankmigration** (`e9b4c27a1f60`) läuft beim ersten Start automatisch: eine neue Spalte `zone.fault_notifications_enabled` (Vorgabe an). Bestehende Räume ändern ihr Verhalten nicht. Keine neuen Add-on-Optionen, `config.yaml` und Schema bleiben unverändert. Rückwärts entfällt die Spalte wieder.
+  - **MCP:** ein neues Werkzeug `set_fault_notifications` (damit 28); es schreibt ins Änderungsprotokoll und braucht `zone.manage`.
+- **Neu in der Anwendung:** Ein Schalter je Raum für Ausfallbenachrichtigungen (Raumtechnik, REST, MCP). Ausgeschaltet entfällt nur die Benachrichtigung per Webhook für Störungen dieses Raums (Sensor, Notbetrieb, festhängender Messwert, Fenster-Alarm, Schaltbefehl); die Störung bleibt in der Oberfläche und im Schaltprotokoll sichtbar. Anlagenweite Meldungen und Mieter-Problemmeldungen sind unberührt. Im Zweifel wird zugestellt.
+
 ## 0.22.2
 
 - Zeigt jetzt auf `thermoctl:0.22.2`.
