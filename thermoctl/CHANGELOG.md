@@ -9,6 +9,14 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.22.2
+
+- Zeigt jetzt auf `thermoctl:0.22.2`.
+- **Beim Upgrade zu wissen:**
+  - **Keine Datenbankmigration**, keine neuen Add-on-Optionen; `config.yaml` und Schema bleiben unverändert.
+  - **Die PI-Regelung verhält sich anders:** Der Integralanteil bleibt bei Moduswechsel (Tag/Nacht), Übersteuerung, Boost, Urlaub und bei einer Zeitlücke erhalten und wird nicht mehr auf 0 gesetzt. Wer PI nutzt (Beta), sieht im Schaltprotokoll `angehalten` statt `zurueckgesetzt` bei Zeitlücken und den Rücksetzgrund `sollwertkontext_wechsel` nicht mehr. Fenster, Frostschutz, Sensorausfall, Ventilschutz und Neustart setzen weiterhin zurück.
+- **Behoben in der Anwendung:** Ein kurzer Internetausfall stoppte die Regelung für alle Zonen. Ein Netzfehler (DNS, Timeout) bei der Meross-Anmeldung brach den Regelzyklus ab, auch für Räume ohne Meross-Aktor; nach drei verpassten Zyklen setzte die PI-Regelung ihren Integralanteil zurück, und der Raum lag danach Stunden unter Soll. Jetzt läuft der Zyklus weiter, die Meross-Anmeldung wird nach einer Minute erneut versucht.
+
 ## 0.22.1
 
 - Zeigt jetzt auf `thermoctl:0.22.1`.
