@@ -9,6 +9,15 @@ siehe das `CHANGELOG.md` im Hauptrepository (<https://github.com/MagicalWig34653
   `amd64`/`aarch64`, Ingress mit eigener Anmeldung, Optionen für Datenbank
   (SQLite/MariaDB), MQTT, Meross und Störungs-Webhook.
 
+## 0.24.0
+
+- Zeigt jetzt auf `thermoctl:0.24.0`.
+- **Beim Upgrade zu wissen:**
+  - **Eine Datenbankmigration** (`f7c2a91d4e08`) läuft beim ersten Start automatisch: Die Hysterese-Spalten speichern vier statt zwei Nachkommastellen. Bestehende Werte bleiben unverändert. Keine neuen Add-on-Optionen, `config.yaml` und Schema bleiben unverändert. Rückwärts wird auf Hundertstel gerundet, aber nie auf 0.
+  - **Raumhysterese:** Ein Eigenwert muss jetzt mindestens 0,0001 K betragen (vorher war auch 0 speicherbar). Ein Raum mit Eigenwert 0 lässt sich erst nach Eingabe eines gültigen Werts wieder speichern; gespeicherte Werte werden nicht verändert.
+  - Enthält außerdem die bis dahin unveröffentlichten Änderungen der Anwendung (PI behält den Integralanteil bei Gates und Neustart, Verbindungsanzeige, Touch-Ziele, Raumseite); Einzelheiten im Hauptrepository.
+- **Neu in der Anwendung:** Die Hysterese ist bis 0,0001 K einstellbar (Raumtechnik, Regelvorgaben, Hysterese beim Wiederanlauf), Schritte von 0,0001 K. Feinere Werte werden abgelehnt statt gerundet.
+
 ## 0.23.0
 
 - Zeigt jetzt auf `thermoctl:0.23.0`.
